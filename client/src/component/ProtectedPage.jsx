@@ -7,7 +7,7 @@ const ProtectedPage = ({ children }) => {
     const navigate = useNavigate();
     return (
         <div>
-            <Header className='bg-gray-50 flex flex-row w-full'>
+            <Header className='bg-gray-50 flex flex-row w-full '>
                 {/* subjects */}
 
                 <div className='flex flex-row items-center w-6/12'>

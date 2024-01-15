@@ -58,7 +58,7 @@ const Home = () => {
                     <li>JavaScript</li>
                     <li>React</li>
                     <li>Apptitude</li>
-                    <li>Data structure</li>
+                    <li>mysql</li>
                 </ul>
             </div>
             <div>
