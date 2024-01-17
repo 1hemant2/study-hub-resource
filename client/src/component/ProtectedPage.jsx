@@ -70,45 +70,44 @@ const ProtectedPage = ({ children }) => {
                     <div className={`flex items-center justify-start ml-10 text-red-500 w-1/5 text-3xl`}>
                         Study Hub
                     </div>
+
+                    <div className='flex flex-row items-center mr-4 w-3/5 space-x-5'>
+                        <div className='m-2 text-lg cursor-pointer text-blue-700 '
+                            onClick={() => {
+                                navigate('/')
+                            }}
+                        >Home</div>
+                        <div className='m-2 text-lg cursor-pointer text-blue-700'
+                            onClick={() => {
+                                navigate('/htmls')
+                            }}
+                        >HTML</div>
+                        <div className='m-2 text-lg cursor-pointer text-blue-700'
+                            onClick={() => {
+                                navigate('/csss')
+                            }}
+                        >CSS</div>
+                        <div className='m-2 text-lg cursor-pointer text-blue-700 '
+                            onClick={() => {
+                                navigate('/javascripts')
+                            }}
+                        >JavaScript</div>
+                        <div className='m-2 text-lg cursor-pointer text-blue-700'
+                            onClick={() => {
+                                navigate('/reacts')
+                            }}
+                        >React</div>
+                        <div className='m-2 text-lg cursor-pointer text-blue-700'
+                            onClick={() => {
+                                navigate('/mysql')
+                            }}
+                        >MySql</div>
+                    </div>
+
                     {/* search */}
 
-                    <div className={`w-3/5 flex justify-center items-center `}>                        <Searchs></Searchs>
-                    </div>
-                    <div >
-
-                        <div className='flex flex-row items-center '>
-                            <div className='m-2 text-lg cursor-pointer text-blue-700 '
-                                onClick={() => {
-                                    navigate('/')
-                                }}
-                            >Home</div>
-                            <div className='m-2 text-lg cursor-pointer text-blue-700'
-                                onClick={() => {
-                                    navigate('/htmls')
-                                }}
-                            >HTML</div>
-                            <div className='m-2 text-lg cursor-pointer text-blue-700'
-                                onClick={() => {
-                                    navigate('/csss')
-                                }}
-                            >CSS</div>
-                            <div className='m-2 text-lg cursor-pointer text-blue-700 '
-                                onClick={() => {
-                                    navigate('/javascripts')
-                                }}
-                            >JavaScript</div>
-                            <div className='m-2 text-lg cursor-pointer text-blue-700'
-                                onClick={() => {
-                                    navigate('/reacts')
-                                }}
-                            >React</div>
-                            <div className='m-2 text-lg cursor-pointer text-blue-700'
-                                onClick={() => {
-                                    navigate('/mysql')
-                                }}
-                            >MySql</div>
-                        </div>
-
+                    <div className={` flex justify-center items-center `}>
+                        <Searchs></Searchs>
                     </div>
                 </div>
 

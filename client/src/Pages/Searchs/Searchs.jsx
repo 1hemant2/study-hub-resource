@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
 import { Input } from 'antd';
-import { serachDataApi } from '../../Api/subjectApi';
 import { useNavigate } from 'react-router-dom';
 const { Search } = Input;
 
