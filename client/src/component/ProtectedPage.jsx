@@ -67,7 +67,11 @@ const ProtectedPage = ({ children }) => {
             {/* for laptop */}
             <header className={`hidden sm:flex`}>
                 <div className='bg-gray-50 w-full flex flex-row'>
-                    <div className={`flex items-center justify-start ml-10 text-red-500 w-1/5 text-3xl`}>
+                    <div className={`flex items-center justify-start ml-10 text-red-500 w-1/5 text-3xl`}
+                        onClick={() => {
+                            navigate('/')
+                        }}
+                    >
                         Study Hub
                     </div>
 

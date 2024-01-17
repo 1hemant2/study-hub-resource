@@ -39,7 +39,7 @@ const Home = () => {
             </Carousel>
             <div className='bg-gray-200'>
                 <div className='text-2xl flex items-end justify-center m-2' >Our mission</div>
-                <div className=' h-[200px] text-lg ml-2 mr-1'>
+                <div className=' text-lg ml-2 mr-1'>
                     "At <span className='text-red-500'>STUDY HUB</span> our goal is to democratize education by providing free and accessible study materials to learners worldwide. We believe that knowledge should be freely available to all, irrespective of geographical, economic, or social barriers. Our mission is to empower individuals to pursue their educational aspirations by offering a diverse range of high-quality study resources.
 
                     Through the collective efforts of educators, contributors, and the support of our community, we aim to create a platform that fosters a culture of open learning. We envision a world where education is not confined by financial constraints, and every individual has the opportunity to enhance their skills, broaden their horizons, and achieve their academic goals.
@@ -60,9 +60,6 @@ const Home = () => {
                     <li>Apptitude</li>
                     <li>mysql</li>
                 </ul>
-            </div>
-            <div>
-
             </div>
         </div>
     )
