@@ -1,4 +1,4 @@
-import { Footer, Header } from 'antd/es/layout/layout'
+import { Footer } from 'antd/es/layout/layout'
 import React, { useState } from 'react';
 import Searchs from '../Pages/Searchs/Searchs';
 import { useNavigate } from 'react-router-dom';
@@ -8,19 +8,17 @@ const ProtectedPage = ({ children }) => {
     const [mobileMenu, setmobileMenu] = useState(false);
     return (
         <div>
-            <header className='bg-gray-50 w-full '>
-                <div className='flex flex-row'>
-
-                    <div className='flex items-center justify-start  ml-10 text-red-500 w-1/5 text-3xl '>
-                        Study Hub
-                    </div>
-                    {/* search */}
-
-                    <div className='w-3/5 flex justify-center items-center'>
-                        <Searchs></Searchs>
-                    </div>
+            {/* for mobile */}
+            <header className={`bg-gray-50 w-full flex ${mobileMenu ? 'flex-col' : 'flex-row sm:hidden'}`}>
+                <div className={`flex items-center justify-start ml-10 text-red-500 w-1/5 text-3xl ${mobileMenu ? 'hidden' : 'none'}`}>
+                    Study Hub
                 </div>
-                <div className='text-4xl w-1/5 flex justify-end items-center' onClick={
+                {/* search */}
+
+                <div className={`w-3/5 flex justify-center items-center ${mobileMenu ? 'hidden' : 'none'}`}>                        <Searchs></Searchs>
+                </div>
+
+                <div className={`text-4xl  flex justify-end items-center ${mobileMenu ? 'w-full' : 'w-1/5'} `} onClick={
                     () => {
                         setmobileMenu(!mobileMenu);
                     }
@@ -65,6 +63,57 @@ const ProtectedPage = ({ children }) => {
                 </div>
 
             </header>
+
+            {/* for laptop */}
+            <header className={`hidden sm:flex`}>
+                <div className='bg-gray-50 w-full flex flex-row'>
+                    <div className={`flex items-center justify-start ml-10 text-red-500 w-1/5 text-3xl`}>
+                        Study Hub
+                    </div>
+                    {/* search */}
+
+                    <div className={`w-3/5 flex justify-center items-center `}>                        <Searchs></Searchs>
+                    </div>
+                    <div >
+
+                        <div className='flex flex-row items-center '>
+                            <div className='m-2 text-lg cursor-pointer text-blue-700 '
+                                onClick={() => {
+                                    navigate('/')
+                                }}
+                            >Home</div>
+                            <div className='m-2 text-lg cursor-pointer text-blue-700'
+                                onClick={() => {
+                                    navigate('/htmls')
+                                }}
+                            >HTML</div>
+                            <div className='m-2 text-lg cursor-pointer text-blue-700'
+                                onClick={() => {
+                                    navigate('/csss')
+                                }}
+                            >CSS</div>
+                            <div className='m-2 text-lg cursor-pointer text-blue-700 '
+                                onClick={() => {
+                                    navigate('/javascripts')
+                                }}
+                            >JavaScript</div>
+                            <div className='m-2 text-lg cursor-pointer text-blue-700'
+                                onClick={() => {
+                                    navigate('/reacts')
+                                }}
+                            >React</div>
+                            <div className='m-2 text-lg cursor-pointer text-blue-700'
+                                onClick={() => {
+                                    navigate('/mysql')
+                                }}
+                            >MySql</div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </header>
+
             <main>
                 <div className='min-h-screen'>{children}</div>
             </main>
