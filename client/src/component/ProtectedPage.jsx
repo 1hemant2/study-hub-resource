@@ -1,4 +1,3 @@
-import { Footer } from 'antd/es/layout/layout'
 import React, { useState } from 'react';
 import Searchs from '../Pages/Searchs/Searchs';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +6,7 @@ const ProtectedPage = ({ children }) => {
     const navigate = useNavigate();
     const [mobileMenu, setmobileMenu] = useState(false);
     return (
-        <div>
+        <div className='h-screen overflow-y-hidden'>
             {/* for mobile */}
             <header className={`bg-gray-50 w-full flex ${mobileMenu ? 'flex-col' : 'flex-row sm:hidden'}`}>
                 <div className={`flex items-center justify-start ml-10 text-red-500 w-1/5 text-3xl ${mobileMenu ? 'hidden' : 'none'}`}>
@@ -35,22 +34,22 @@ const ProtectedPage = ({ children }) => {
                             >Home</div>
                             <div className='m-2 text-lg cursor-pointer text-blue-700'
                                 onClick={() => {
-                                    navigate('/htmls')
+                                    navigate('/html')
                                 }}
                             >HTML</div>
                             <div className='m-2 text-lg cursor-pointer text-blue-700'
                                 onClick={() => {
-                                    navigate('/csss')
+                                    navigate('/css')
                                 }}
                             >CSS</div>
                             <div className='m-2 text-lg cursor-pointer text-blue-700 '
                                 onClick={() => {
-                                    navigate('/javascripts')
+                                    navigate('/javascript')
                                 }}
                             >JavaScript</div>
                             <div className='m-2 text-lg cursor-pointer text-blue-700'
                                 onClick={() => {
-                                    navigate('/reacts')
+                                    navigate('/react')
                                 }}
                             >React</div>
                             <div className='m-2 text-lg cursor-pointer text-blue-700'
@@ -83,22 +82,22 @@ const ProtectedPage = ({ children }) => {
                         >Home</div>
                         <div className='m-2 text-lg cursor-pointer text-blue-700'
                             onClick={() => {
-                                navigate('/htmls')
+                                navigate('/html')
                             }}
                         >HTML</div>
                         <div className='m-2 text-lg cursor-pointer text-blue-700'
                             onClick={() => {
-                                navigate('/csss')
+                                navigate('/css')
                             }}
                         >CSS</div>
                         <div className='m-2 text-lg cursor-pointer text-blue-700 '
                             onClick={() => {
-                                navigate('/javascripts')
+                                navigate('/javascript')
                             }}
                         >JavaScript</div>
                         <div className='m-2 text-lg cursor-pointer text-blue-700'
                             onClick={() => {
-                                navigate('/reacts')
+                                navigate('/react')
                             }}
                         >React</div>
                         <div className='m-2 text-lg cursor-pointer text-blue-700'
@@ -117,12 +116,12 @@ const ProtectedPage = ({ children }) => {
 
             </header>
 
-            <main>
-                <div className='min-h-screen'>{children}</div>
+            <main >
+                <div className=''>{children}</div>
             </main>
-            <Footer>
-                <div className='text-xl flex justify-center items-center '>@copyright 2024 Hemant</div>
-            </Footer>
+            <footer className='mt-7'>
+                <div className='text-xl flex justify-center items-center  fixed bottom-0 bg-slate-100 w-full'>@copyright 2024 Hemant</div>
+            </footer>
         </div>
     )
 }

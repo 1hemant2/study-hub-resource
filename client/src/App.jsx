@@ -9,33 +9,45 @@ import Reacts from './Pages/Course/Reacts/Reacts';
 import SearchReult from './Pages/Searchs/SearchReult';
 import CreatePost from './Pages/CreatePost/CreatePost';
 import MySqls from './Pages/Course/MySqls/MySql';
+import { useEffect, useState } from 'react';
+import Loader from './component/Loader';
 
 
 function App() {
-
+  const [loading, setLoading] = useState(false);
+  const fakeAsyncOperation = async () => {
+    // Simulate a delay (you can replace this with your actual loading logic)
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setLoading(false); // Set loading to false when the operation is complete
+  };
+  useEffect(() => {
+    fakeAsyncOperation();
+  }, [])
   return (
     <>
-      <BrowserRouter>
-        <Routes>
+      {loading ? (<Loader></Loader>) :
+        <BrowserRouter>
+          <Routes>
 
-          <Route path='/createPost' element={<CreatePost></CreatePost>}></Route>
-          <Route path='/' element={<ProtectedPage><Home></Home></ProtectedPage>}></Route>
-          <Route path='/javascripts' element={<ProtectedPage><JavaScripts></JavaScripts></ProtectedPage>}></Route>
-          <Route path='/htmls' element={<ProtectedPage><HTMLs></HTMLs></ProtectedPage>}></Route>
-          <Route path='/csss' element={<ProtectedPage><CSSs></CSSs></ProtectedPage>}></Route>
-          <Route path='/javascripts' element={<ProtectedPage><JavaScripts></JavaScripts></ProtectedPage>}
-          ></Route>
-          <Route path='/reacts' element={<ProtectedPage><Reacts></Reacts></ProtectedPage>}
-          ></Route>
-          <Route path='/mysql' element={<ProtectedPage><MySqls></MySqls></ProtectedPage>}
-          ></Route>
+            <Route path='/createPost' element={<CreatePost></CreatePost>}></Route>
+            <Route path='/' element={<ProtectedPage><Home></Home></ProtectedPage>}></Route>
+            <Route path='/html' element={<ProtectedPage><HTMLs></HTMLs></ProtectedPage>}></Route>
+            <Route path='/css' element={<ProtectedPage><CSSs></CSSs></ProtectedPage>}></Route>
+            <Route path='/javascript' element={<ProtectedPage><JavaScripts></JavaScripts></ProtectedPage>}
+            ></Route>
+            <Route path='/react' element={<ProtectedPage><Reacts></Reacts></ProtectedPage>}
+            ></Route>
+            <Route path='/mysql' element={<ProtectedPage><MySqls></MySqls></ProtectedPage>}
+            ></Route>
 
-          <Route path='/searchResult' element={<ProtectedPage><SearchReult></SearchReult></ProtectedPage>}
-          ></Route>
+            <Route path='/searchResult' element={<ProtectedPage><SearchReult></SearchReult></ProtectedPage>}
+            ></Route>
 
 
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+
+      }
     </>
   )
 }

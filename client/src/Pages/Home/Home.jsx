@@ -15,7 +15,7 @@ const contentStyle = {
 
 const Home = () => {
     return (
-        <div>
+        <div className='overflow-y-auto h-screen'>
             <Carousel autoplay effect='fade'>
                 <div>
                     <h3 style={contentStyle}>
@@ -50,7 +50,7 @@ const Home = () => {
                     "
                 </div>
             </div>
-            <div className='text-base bg-slate-100 mt-2 h-[200px]'>
+            <div className='text-base bg-slate-100 mt-2 mb-20'>
                 <div className='text-2xl flex items-center justify-center'>subjects</div>
                 <ul className='ml-6 text-blue-500 cursor-pointer'>
                     <li >HTML</li>
