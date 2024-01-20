@@ -7,10 +7,11 @@ import HTMLs from './Pages/Course/HTMLs/HTMLs';
 import CSSs from './Pages/Course/CSSs/CSSs';
 import Reacts from './Pages/Course/Reacts/Reacts';
 import SearchReult from './Pages/Searchs/SearchReult';
-import CreatePost from './Pages/CreatePost/CreatePost';
+import CreatePost from './admin/CreatePost/CreatePost';
 import MySqls from './Pages/Course/MySqls/MySql';
 import { useEffect, useState } from 'react';
 import Loader from './component/Loader';
+import Admin from './admin/Admin';
 
 
 function App() {
@@ -28,8 +29,7 @@ function App() {
       {loading ? (<Loader></Loader>) :
         <BrowserRouter>
           <Routes>
-
-            <Route path='/createPost' element={<CreatePost></CreatePost>}></Route>
+            <Route path='/admin' element={<Admin><CreatePost></CreatePost></Admin>}></Route>
             <Route path='/' element={<ProtectedPage><Home></Home></ProtectedPage>}></Route>
             <Route path='/html' element={<ProtectedPage><HTMLs></HTMLs></ProtectedPage>}></Route>
             <Route path='/css' element={<ProtectedPage><CSSs></CSSs></ProtectedPage>}></Route>
@@ -42,8 +42,6 @@ function App() {
 
             <Route path='/searchResult' element={<ProtectedPage><SearchReult></SearchReult></ProtectedPage>}
             ></Route>
-
-
           </Routes>
         </BrowserRouter>
 

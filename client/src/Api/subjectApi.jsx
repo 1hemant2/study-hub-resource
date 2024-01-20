@@ -2,8 +2,10 @@ import { apiInstances } from "./apiInstances";
 
 export const CreatePostApi = async (payload) => {
     try {
-        const response = await apiInstances.post('/api/Posts/createPost', payload);
-        return response.data;
+        // const response = await apiInstances.post('/api/Posts/createPost', payload);
+        console.log(payload);
+        // return response.data;
+        return payload;
     } catch (error) {
         console.log(error);
     }
