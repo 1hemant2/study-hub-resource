@@ -7,6 +7,7 @@ const postSchema = new mongoose.Schema({
     },
     topicName: {
         type: String,
+        // unique: true,
         required: true
     },
     topicDetails: {
@@ -15,7 +16,17 @@ const postSchema = new mongoose.Schema({
     },
     downloadResource: {
         type: String,
-    }
+    },
+    code: {
+        type: String
+    },
+    subtopics: [
+        {
+            name: String,
+            details: String,
+            code: String
+        }
+    ]
 
 }, {
     timestamps: true

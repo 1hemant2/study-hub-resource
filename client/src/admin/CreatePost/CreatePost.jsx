@@ -15,7 +15,6 @@ const CreatePost = () => {
     const [data, setData] = useState({});
     const [selectedOption, setSelectedOption] = useState('');
     const [subtopics, setSubtopics] = useState([]);
-    const [codes, setCodes] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
@@ -48,22 +47,7 @@ const CreatePost = () => {
             ...updatedSubtopics[index],
             [property]: value,
         };
-        // console.log(updatedSubtopics);
         setSubtopics(updatedSubtopics);
-    };
-    const handleAddCode = () => {
-        // Add a new empty subtopic field
-        setCodes([...codes, { name: '', details: '' }]);
-    };
-
-    const handleCodeChange = (index, property, value) => {
-        // Update the subtopics array based on user input
-        const updatedCodes = [...codes];
-        updatedCodes[index] = {
-            ...updatedCodes[index],
-            [property]: value
-        };
-        setCodes(updatedCodes);
     };
 
     const handleSubmit = async (e) => {
@@ -71,9 +55,8 @@ const CreatePost = () => {
         const updatedData = {
             'initialData': data,
             'subtopics': subtopics,
-            'codes': codes
         }
-        // setData({ ...data, 'subtopics': subtopics, 'codes': codes });
+        setData({ ...data, 'subtopics': subtopics });
         const response = await CreatePostApi(updatedData);
         //setData({});
     }
@@ -154,15 +137,25 @@ const CreatePost = () => {
                     <label htmlFor="topicDetails" className='text-2xl flex justify-center'>topic Details</label>
                     <textarea type="text" rows={20} name='topicDetails' onChange={handleChange} />
                 </div>
+
+                <hr />
+                <div className=' flex flex-col m-5'>
+                    <label htmlFor="topicDetails" className='text-2xl flex justify-center'>code</label>
+                    <textarea type="text" rows={20} name='code' onChange={handleChange} />
+                </div>
+                <div className=' flex flex-col m-5'>
+                    <label htmlFor="topicDetails" className='text-2xl flex justify-center'>output</label>
+                    <textarea type="text" rows={8} name='output' onChange={handleChange} />
+                </div>
+
                 <hr />
                 <div className='flex flex-row space-x-2 m-2 justify-center'>
                     <div className='bg-slate-400 w-28 h-8 flex items-center justify-center cursor-pointer' onClick={handleAddSubtopic}>sub topics</div>
-                    <div className='bg-slate-400 w-28 h-8 flex items-center justify-center cursor-pointer' onClick={handleAddCode}>add code</div>
+
                 </div>
                 <div className='flex flex-col m-10'>
 
                     {/* Dynamically render input fields for subtopics */}
-
                     {subtopics.map((subtopic, index) => (
                         <div key={index} className='mt-5'>
                             <div className='flex flex-row '>
@@ -193,41 +186,21 @@ const CreatePost = () => {
                                     className=''
                                 />
                             </div>
-                        </div>
-                    ))}
-
-                    {codes.map((code, index) => (
-                        <div key={index} className='mt-5'>
-                            <div className='flex flex-row '>
-                                <label htmlFor={`code-${index}`} className="text-xl flex justify-center">
-                                    code{index + 1} Name
-                                </label>
-                                <input
-                                    type="text"
-                                    id={`subtopicName-${index}`}
-                                    name={`subtopicName-${index}`}
-                                    value={code.name}
-                                    className='ml-2 w-1/2'
-                                    onChange={(e) => handleCodeChange(index, 'name', e.target.value)}
-                                />
-                            </div>
-
-
                             <div className='flex flex-col mt-1'>
-                                <label htmlFor={`code-${index}`} className="text-2xl flex justify-center">
+                                <label htmlFor={`subtopicDetails-${index}`} className="text-2xl flex justify-center">
                                     code {index + 1} Details
                                 </label>
                                 <textarea
-                                    id={`subtopicDetails-${index}`}
-                                    name={`subtopicDetails-${index}`}
-                                    value={code.details}
+                                    id={`code-${index}`}
+                                    name={`code-${index}`}
+                                    value={subtopic.code}
                                     rows={20}
-                                    onChange={(e) => handleCodeChange(index, 'details', e.target.value)}
+                                    onChange={(e) => handleSubtopicChange(index, 'code', e.target.value)}
+                                    className=''
                                 />
                             </div>
                         </div>
                     ))}
-
                 </div>
                 <hr />
                 <div className='m-5'>

@@ -1,19 +1,17 @@
 const Post = require('../model/Post');
-const { google } = require('googleapis');
-const fs = require('fs');
 
 exports.createPost = async (req, res) => {
     try {
-        const subject = req.body.subject;
-        const topicName = req.body.topicName;
-        const topicDetails = req.body.topicDetails;
-        const downloadResource = req.body.downloadResource;
-        console.log(subject, topicName, topicDetails);
+        const { initialData, subtopics } = req.body;
+        const { subject, topicDetails, topicName, downloadResource, code } = initialData;
+        // console.log(code);
         const posts = new Post({
-            subject: subject,
-            topicName: topicName,
-            topicDetails: topicDetails,
-            downloadResource: downloadResource
+            subject,
+            topicDetails,
+            topicName,
+            downloadResource,
+            code,
+            subtopics
         })
         posts.save();
         res.send({
@@ -28,6 +26,7 @@ exports.createPost = async (req, res) => {
     }
 }
 
+//this api used to get the all topic of the subject 
 exports.getSubject = async (req, res) => {
     try {
         const parameter = {};
@@ -52,6 +51,7 @@ exports.getSubject = async (req, res) => {
     }
 }
 
+//this api is used to get the details of the topic 
 exports.getTopicDetials = async (req, res) => {
     try {
         const subject = req.query.subject;
@@ -60,7 +60,8 @@ exports.getTopicDetials = async (req, res) => {
         // console.log(subject);
         const data = await Post.find({ subject: subject, topicName: topic });
         const topicDetails = data[0];
-        // console.log(data);
+        // console.log(topicDetails);
+
         res.send({
             data: topicDetails,
             success: true

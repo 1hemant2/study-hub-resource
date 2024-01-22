@@ -5,6 +5,8 @@ const HTMLs = () => {
     const [topics, setTopics] = useState([]);
     const [topicName, setTopicName] = useState();
     const [topicDetails, setTopicDetails] = useState(String);
+    const [codes, setCodes] = useState();
+    const [subtopics, setSubtopics] = useState([]);
     const [topicDownload, setTopicDownload] = useState("https://drive.google.com/uc?export=download&id=1Yu5JVk9o-wvbiyTkRjrJZez3AhYObDHP");
     const [mobileTopicsMenu, setMobileTopicMenu] = useState(false);
     const getTopicsNameFn = async () => {
@@ -23,7 +25,9 @@ const HTMLs = () => {
             const data = await TopicDetailsApi("html", value);
             setTopicDetails(data.topicDetails);
             setTopicDownload(data.downloadResource)
-            // console.log(data);
+            setCodes(data.code);
+            setSubtopics(data.subtopics);
+            // console.log(data.subtopics);
         } catch (error) {
             console.log(error);
         }
@@ -55,9 +59,7 @@ const HTMLs = () => {
                         <div className='text-lg text-sky-600 font-semibold bg-slate-200'>topics</div>
                         <div className=' h-[650px] overflow-y-auto  bg-slate-50'>
                             {
-
                                 topics && topics.map((t) => {
-                                    // console.log(t);
                                     return (<div key={t}>
                                         <div className='m-2 cursor-pointer text-blue-950'
                                             onClick={() => {
@@ -78,6 +80,16 @@ const HTMLs = () => {
                         </div>
                         {/* call api and display data instead of topic content */}
                         <div className='m-2 text-lg'>{topicDetails}</div>
+                        <div className='m-2 text-lg'>{codes}</div>
+                        {
+                            subtopics?.map(st => (
+                                <div>
+                                    <div className=''>{st.name}</div>
+                                    <div className=''>{st.details}</div>
+                                    <div className=''>{st.code}</div>
+                                </div>
+                            ))
+                        }
                         <div className='h-[500px] overflow-y-auto flex flex-row justify-between '>
                             {
                                 topicDetails ? (<button className='bg-slate-900 text-white h-6 cursor-pointer' onClick={handleDownload}><i className="ri-file-download-fill"></i> download resource</button>) : <Loader></Loader>
