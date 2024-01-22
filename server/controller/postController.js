@@ -3,7 +3,7 @@ const Post = require('../model/Post');
 exports.createPost = async (req, res) => {
     try {
         const { initialData, subtopics } = req.body;
-        const { subject, topicDetails, topicName, downloadResource, code } = initialData;
+        const { subject, topicDetails, topicName, downloadResource, code, output } = initialData;
         // console.log(code);
         const posts = new Post({
             subject,
@@ -11,6 +11,7 @@ exports.createPost = async (req, res) => {
             topicName,
             downloadResource,
             code,
+            output,
             subtopics
         })
         posts.save();

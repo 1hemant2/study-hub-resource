@@ -145,7 +145,7 @@ const CreatePost = () => {
                 </div>
                 <div className=' flex flex-col m-5'>
                     <label htmlFor="topicDetails" className='text-2xl flex justify-center'>output</label>
-                    <textarea type="text" rows={8} name='output' onChange={handleChange} />
+                    <textarea type="text" rows={5} name='output' onChange={handleChange} />
                 </div>
 
                 <hr />
@@ -187,8 +187,8 @@ const CreatePost = () => {
                                 />
                             </div>
                             <div className='flex flex-col mt-1'>
-                                <label htmlFor={`subtopicDetails-${index}`} className="text-2xl flex justify-center">
-                                    code {index + 1} Details
+                                <label htmlFor={`code-${index}`} className="text-2xl flex justify-center">
+                                    code {index + 1}
                                 </label>
                                 <textarea
                                     id={`code-${index}`}
@@ -196,6 +196,19 @@ const CreatePost = () => {
                                     value={subtopic.code}
                                     rows={20}
                                     onChange={(e) => handleSubtopicChange(index, 'code', e.target.value)}
+                                    className=''
+                                />
+                            </div>
+                            <div className='flex flex-col mt-1'>
+                                <label htmlFor={`code-${index}`} className="text-2xl flex justify-center">
+                                    output {index + 1}
+                                </label>
+                                <textarea
+                                    id={`output-${index}`}
+                                    name={`output-${index}`}
+                                    value={subtopic.output}
+                                    rows={5}
+                                    onChange={(e) => handleSubtopicChange(index, 'output', e.target.value)}
                                     className=''
                                 />
                             </div>

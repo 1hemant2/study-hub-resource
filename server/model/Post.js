@@ -20,11 +20,15 @@ const postSchema = new mongoose.Schema({
     code: {
         type: String
     },
+    output: {
+        type: String
+    },
     subtopics: [
         {
             name: String,
             details: String,
-            code: String
+            code: String,
+            output: String
         }
     ]
 

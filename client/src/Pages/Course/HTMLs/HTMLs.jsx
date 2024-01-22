@@ -6,6 +6,7 @@ const HTMLs = () => {
     const [topicName, setTopicName] = useState();
     const [topicDetails, setTopicDetails] = useState(String);
     const [codes, setCodes] = useState();
+    const [output, setOutput] = useState();
     const [subtopics, setSubtopics] = useState([]);
     const [topicDownload, setTopicDownload] = useState("https://drive.google.com/uc?export=download&id=1Yu5JVk9o-wvbiyTkRjrJZez3AhYObDHP");
     const [mobileTopicsMenu, setMobileTopicMenu] = useState(false);
@@ -26,6 +27,7 @@ const HTMLs = () => {
             setTopicDetails(data.topicDetails);
             setTopicDownload(data.downloadResource)
             setCodes(data.code);
+            setOutput(data.output)
             setSubtopics(data.subtopics);
             // console.log(data.subtopics);
         } catch (error) {
@@ -80,13 +82,15 @@ const HTMLs = () => {
                         </div>
                         {/* call api and display data instead of topic content */}
                         <div className='m-2 text-lg'>{topicDetails}</div>
-                        <div className='m-2 text-lg'>{codes}</div>
+                        <div className='m-2 text-lg bg-gray-400'>{codes}</div>
+                        <div className='m-2 text-lg bg-blue-400'>{output}</div>
                         {
                             subtopics?.map(st => (
-                                <div>
-                                    <div className=''>{st.name}</div>
-                                    <div className=''>{st.details}</div>
-                                    <div className=''>{st.code}</div>
+                                <div key={st.name}>
+                                    <div className='m-1 bg-red-100'>{st.name}</div>
+                                    <div className='m-1 bg-yellow-50'>{st.details}</div>
+                                    <div className='m-1 bg-green-200'>{st.code}</div>
+                                    <div className='m-1 bg-gray-300'>{st.output}</div>
                                 </div>
                             ))
                         }
