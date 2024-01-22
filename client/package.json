@@ -13,6 +13,7 @@
     "antd": "^5.13.1",
     "axios": "^1.6.5",
     "googleapis": "^130.0.0",
+    "prismjs": "^1.29.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-drive-picker": "^1.2.2",

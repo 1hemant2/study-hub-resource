@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { SubjectApi, TopicDetailsApi } from '../../../Api/subjectApi';
 import Loader from '../../../component/Loader';
+import CodeHightLighter from '../../../component/CodeHightLighter';
 const HTMLs = () => {
     const [topics, setTopics] = useState([]);
     const [topicName, setTopicName] = useState();
@@ -52,6 +53,10 @@ const HTMLs = () => {
             topicDetailFn("introduction");
         }
     }, [topics]);
+    useEffect(() => {
+        // Initialize Prism.js
+        Prism.highlightAll();
+    }, []);
     return (
         <div >
             {/* for laptop */}
@@ -82,15 +87,38 @@ const HTMLs = () => {
                         </div>
                         {/* call api and display data instead of topic content */}
                         <div className='m-2 text-lg'>{topicDetails}</div>
-                        <div className='m-2 text-lg bg-gray-400'>{codes}</div>
-                        <div className='m-2 text-lg bg-blue-400'>{output}</div>
+
+                        {
+                            codes &&
+                            <div>
+                                <CodeHightLighter language="html" code={codes}></CodeHightLighter>
+                            </div>
+                        }
+
+
+                        {
+                            output &&
+                            <div>
+                                <CodeHightLighter language="html" code={output}></CodeHightLighter>
+                            </div>
+                        }
+                        <div className='m-2 text-lg bg-blue-400'></div>
                         {
                             subtopics?.map(st => (
                                 <div key={st.name}>
                                     <div className='m-1 bg-red-100'>{st.name}</div>
                                     <div className='m-1 bg-yellow-50'>{st.details}</div>
-                                    <div className='m-1 bg-green-200'>{st.code}</div>
-                                    <div className='m-1 bg-gray-300'>{st.output}</div>
+                                    {st.code &&
+                                        <div>
+                                            <CodeHightLighter language="html" code={st.code}></CodeHightLighter>
+                                        </div>
+                                    }
+                                    {
+                                        st.output &&
+                                        <div>
+                                            <CodeHightLighter language="html" code={st.output}></CodeHightLighter>
+                                        </div>
+                                    }
                                 </div>
                             ))
                         }
@@ -106,6 +134,8 @@ const HTMLs = () => {
                     </div>
                 </div>
             </div>
+
+            {/* --------------------------------------------------------------------------------------------------------*/}
 
             {/* for mobile */}
             <div className=' sm:hidden pb-4'>
