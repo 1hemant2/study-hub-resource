@@ -14,8 +14,11 @@ const HTMLs = () => {
     const [subtopics, setSubtopics] = useState([]);
     const [topicDownload, setTopicDownload] = useState();
     const [mobileTopicsMenu, setMobileTopicMenu] = useState(false);
+    const [previousTopic, setPreviousTopic] = useState();
+    const [nextTopic, setNextTopic] = useState();
     const navigate = useNavigate();
     const params = useParams();
+
     const getTopicsNameFn = async () => {
         try {
             const data = await SubjectApi({ "subject": "html" }); //2.change
@@ -35,6 +38,17 @@ const HTMLs = () => {
             setOutput(data.output)
             setSubtopics(data.subtopics);
             navigate(`/html/${value}`)
+            const indexOfTopic = topics.indexOf(value);
+            if (indexOfTopic > 0) {
+                setPreviousTopic(topics[indexOfTopic - 1]);
+            } else {
+                setPreviousTopic(undefined);
+            }
+            if (indexOfTopic < topics.length - 1) {
+                setNextTopic(topics[indexOfTopic + 1])
+            } else {
+                setNextTopic(undefined);
+            }
             // console.log(data.subtopics);
         } catch (error) {
             console.log(error);
@@ -50,9 +64,11 @@ const HTMLs = () => {
     const hanldeMobileMenuTopics = () => {
         setMobileTopicMenu(!mobileTopicsMenu);
     }
+
     useEffect(() => {
         getTopicsNameFn();
     }, [])
+
     useEffect(() => {
         if (topics.length > 0) {
             const { topics } = params;
@@ -60,7 +76,7 @@ const HTMLs = () => {
             if (topics) {
                 topicDetailFn(topics);
             } else {
-                topicDetailFn("introduction");
+                topicDetailFn("HTML introduction");
             }
         }
     }, [topics]);
@@ -139,8 +155,22 @@ const HTMLs = () => {
                                 topicDetails ? (<button className='bg-slate-900 text-white h-6 cursor-pointer' onClick={handleDownload}><i className="ri-file-download-fill"></i> download resource</button>) : <Loader></Loader>
                             }
                             <div className='flex flex-row m-3 space-x-4 text-2xl '>
-                                <div className='text-green-300 cursor-pointer'>Prev</div>
-                                <div className='text-green-600 cursor-pointer'>Next</div>
+                                {
+                                    previousTopic && (
+                                        <div className='text-green-300 cursor-pointer'
+                                            onClick={() => topicDetailFn(previousTopic)}
+                                        >Prev</div>
+                                    )
+                                }
+                                {
+                                    nextTopic && (
+                                        <div className='text-green-600 cursor-pointer'
+                                            onClick={() => topicDetailFn(nextTopic)}
+                                        >Next</div>
+                                    )
+                                }
+
+
                             </div>
                         </div>
                     </div>
@@ -235,8 +265,16 @@ const HTMLs = () => {
                                     <>
                                         <button className='bg-slate-900 text-white h-6 cursor-pointer' onClick={handleDownload}><i className="ri-file-download-fill"></i> download resource</button>
                                         <div className='flex flex-row m-3 space-x-4 text-2xl'>
-                                            <div className='text-green-300'>Prev</div>
-                                            <div className='text-green-600'>Next</div>
+                                            {
+                                                previousTopic && (<div className='text-green-300'
+                                                    onClick={() => topicDetailFn(previousTopic)}
+                                                >Prev</div>)
+                                            }
+                                            {
+                                                nextTopic && (<div className='text-green-600'
+                                                    onClick={() => topicDetailFn(nextTopic)}
+                                                >Next</div>)
+                                            }
                                         </div>
                                     </>
                                 )
