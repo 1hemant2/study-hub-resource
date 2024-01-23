@@ -13,6 +13,8 @@ const CSSs = () => {
     const [subtopics, setSubtopics] = useState([]);
     const [topicDownload, setTopicDownload] = useState();
     const [mobileTopicsMenu, setMobileTopicMenu] = useState(false);
+    const [previousTopic, setPreviousTopic] = useState();
+    const [nextTopic, setNextTopic] = useState();
     const navigate = useNavigate();
     const params = useParams();
     const getTopicsNameFn = async () => {
@@ -36,7 +38,17 @@ const CSSs = () => {
             setSubtopics(data.subtopics);
             // console.log(data.subtopics);
             navigate(`/css/${value}`)
-
+            const indexOfTopic = topics.indexOf(value);
+            if (indexOfTopic > 0) {
+                setPreviousTopic(topics[indexOfTopic - 1]);
+            } else {
+                setPreviousTopic(undefined);
+            }
+            if (indexOfTopic < topics.length - 1) {
+                setNextTopic(topics[indexOfTopic + 1])
+            } else {
+                setNextTopic(undefined);
+            }
         } catch (error) {
             console.log(error);
         }
@@ -144,8 +156,20 @@ const CSSs = () => {
                                 topicDetails ? (<button className='bg-slate-900 text-white h-6 cursor-pointer' onClick={handleDownload}><i className="ri-file-download-fill"></i> download resource</button>) : <Loader></Loader>
                             }
                             <div className='flex flex-row m-3 space-x-4 text-2xl '>
-                                <div className='text-green-300 cursor-pointer'>Prev</div>
-                                <div className='text-green-600 cursor-pointer'>Next</div>
+                                {
+                                    previousTopic && (
+                                        <div className='text-green-300 cursor-pointer'
+                                            onClick={() => topicDetailFn(previousTopic)}
+                                        >Prev</div>
+                                    )
+                                }
+                                {
+                                    nextTopic && (
+                                        <div className='text-green-600 cursor-pointer'
+                                            onClick={() => topicDetailFn(nextTopic)}
+                                        >Next</div>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
@@ -238,15 +262,28 @@ const CSSs = () => {
                                 topicDetails ? (
                                     <>
                                         <button className='bg-slate-900 text-white h-6 cursor-pointer' onClick={handleDownload}><i className="ri-file-download-fill"></i> download resource</button>
-                                        <div className='flex flex-row m-3 space-x-4 text-2xl'>
-                                            <div className='text-green-300'>Prev</div>
-                                            <div className='text-green-600'>Next</div>
-                                        </div>
+
                                     </>
                                 )
 
                                     : <Loader></Loader>
                             }
+                            <div className='flex flex-row m-3 space-x-4 text-2xl'>
+                                {
+                                    previousTopic && (
+                                        <div className='text-green-300 cursor-pointer'
+                                            onClick={() => topicDetailFn(previousTopic)}
+                                        >Prev</div>
+                                    )
+                                }
+                                {
+                                    nextTopic && (
+                                        <div className='text-green-600 cursor-pointer'
+                                            onClick={() => topicDetailFn(nextTopic)}
+                                        >Next</div>
+                                    )
+                                }
+                            </div>
 
                         </div>
                     </div>

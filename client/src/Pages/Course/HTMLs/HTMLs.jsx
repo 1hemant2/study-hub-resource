@@ -264,23 +264,24 @@ const HTMLs = () => {
                                 topicDetails ? (
                                     <>
                                         <button className='bg-slate-900 text-white h-6 cursor-pointer' onClick={handleDownload}><i className="ri-file-download-fill"></i> download resource</button>
-                                        <div className='flex flex-row m-3 space-x-4 text-2xl'>
-                                            {
-                                                previousTopic && (<div className='text-green-300'
-                                                    onClick={() => topicDetailFn(previousTopic)}
-                                                >Prev</div>)
-                                            }
-                                            {
-                                                nextTopic && (<div className='text-green-600'
-                                                    onClick={() => topicDetailFn(nextTopic)}
-                                                >Next</div>)
-                                            }
-                                        </div>
+
                                     </>
                                 )
 
                                     : <Loader></Loader>
                             }
+                            <div className='flex flex-row m-3 space-x-4 text-2xl'>
+                                {
+                                    previousTopic && (<div className='text-green-300'
+                                        onClick={() => topicDetailFn(previousTopic)}
+                                    >Prev</div>)
+                                }
+                                {
+                                    nextTopic && (<div className='text-green-600'
+                                        onClick={() => topicDetailFn(nextTopic)}
+                                    >Next</div>)
+                                }
+                            </div>
 
                         </div>
                     </div>

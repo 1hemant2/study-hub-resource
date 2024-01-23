@@ -30,31 +30,37 @@ const ProtectedPage = ({ children }) => {
                             <div className='m-2 text-lg cursor-pointer text-blue-700 '
                                 onClick={() => {
                                     navigate('/')
+                                    setmobileMenu(!mobileMenu);
                                 }}
                             >Home</div>
                             <div className='m-2 text-lg cursor-pointer text-blue-700'
                                 onClick={() => {
                                     navigate('/html')
+                                    setmobileMenu(!mobileMenu);
                                 }}
                             >HTML</div>
                             <div className='m-2 text-lg cursor-pointer text-blue-700'
                                 onClick={() => {
                                     navigate('/css')
+                                    setmobileMenu(!mobileMenu);
                                 }}
                             >CSS</div>
                             <div className='m-2 text-lg cursor-pointer text-blue-700 '
                                 onClick={() => {
                                     navigate('/javascript')
+                                    setmobileMenu(!mobileMenu);
                                 }}
                             >JavaScript</div>
                             <div className='m-2 text-lg cursor-pointer text-blue-700'
                                 onClick={() => {
                                     navigate('/react')
+                                    setmobileMenu(!mobileMenu);
                                 }}
                             >React</div>
                             <div className='m-2 text-lg cursor-pointer text-blue-700'
                                 onClick={() => {
                                     navigate('/mysql')
+                                    setmobileMenu(!mobileMenu);
                                 }}
                             >MySql</div>
                         </div>) : null
