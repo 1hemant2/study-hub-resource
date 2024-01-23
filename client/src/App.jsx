@@ -31,13 +31,13 @@ function App() {
           <Routes>
             <Route path='/admin' element={<Admin><CreatePost></CreatePost></Admin>}></Route>
             <Route path='/' element={<ProtectedPage><Home></Home></ProtectedPage>}></Route>
-            <Route path='/html' element={<ProtectedPage><HTMLs></HTMLs></ProtectedPage>}></Route>
-            <Route path='/css' element={<ProtectedPage><CSSs></CSSs></ProtectedPage>}></Route>
-            <Route path='/javascript' element={<ProtectedPage><JavaScripts></JavaScripts></ProtectedPage>}
+            <Route path='/html/:topics?' element={<ProtectedPage><HTMLs></HTMLs></ProtectedPage>}></Route>
+            <Route path='/css/:topics?' element={<ProtectedPage><CSSs></CSSs></ProtectedPage>}></Route>
+            <Route path='/javascript/:topics?' element={<ProtectedPage><JavaScripts></JavaScripts></ProtectedPage>}
             ></Route>
-            <Route path='/react' element={<ProtectedPage><Reacts></Reacts></ProtectedPage>}
+            <Route path='/react/:topics?' element={<ProtectedPage><Reacts></Reacts></ProtectedPage>}
             ></Route>
-            <Route path='/mysql' element={<ProtectedPage><MySqls></MySqls></ProtectedPage>}
+            <Route path='/mysql/:topics?' element={<ProtectedPage><MySqls></MySqls></ProtectedPage>}
             ></Route>
 
             <Route path='/searchResult' element={<ProtectedPage><SearchReult></SearchReult></ProtectedPage>}

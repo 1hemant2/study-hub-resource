@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { SubjectApi, TopicDetailsApi } from '../../../Api/subjectApi';
 import Loader from '../../../component/Loader';
 import CodeHightLighter from '../../../component/CodeHightLighter';
+import { useNavigate, useParams } from 'react-router-dom';
+
 const MySql = () => {
     const [topics, setTopics] = useState([]);
     const [topicName, setTopicName] = useState();
@@ -11,6 +13,8 @@ const MySql = () => {
     const [subtopics, setSubtopics] = useState([]);
     const [topicDownload, setTopicDownload] = useState();
     const [mobileTopicsMenu, setMobileTopicMenu] = useState(false);
+    const navigate = useNavigate();
+    const params = useParams();
     const getTopicsNameFn = async () => {
         try {
             const data = await SubjectApi({ "subject": "mysql" });
@@ -30,6 +34,8 @@ const MySql = () => {
             setCodes(data.code);
             setOutput(data.output)
             setSubtopics(data.subtopics);
+            navigate(`/mysql/${value}`)
+
             // console.log(data.subtopics);
         } catch (error) {
             console.log(error);
@@ -50,7 +56,13 @@ const MySql = () => {
     }, [])
     useEffect(() => {
         if (topics.length > 0) {
-            topicDetailFn("Introduction to MySQL");
+            const { topics } = params;
+            console.log(topics);
+            if (topics) {
+                topicDetailFn(topics);
+            } else {
+                topicDetailFn("Introduction to MySQL");
+            }
         }
     }, [topics]);
     return (

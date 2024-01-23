@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { SubjectApi, TopicDetailsApi } from '../../../Api/subjectApi';
 import Loader from '../../../component/Loader';
 import CodeHightLighter from '../../../component/CodeHightLighter';
+import { useNavigate, useParams } from 'react-router-dom';
 const JavaScripts = () => {
     const [topics, setTopics] = useState([]);
     const [topicName, setTopicName] = useState();
@@ -11,10 +12,11 @@ const JavaScripts = () => {
     const [subtopics, setSubtopics] = useState([]);
     const [topicDownload, setTopicDownload] = useState();
     const [mobileTopicsMenu, setMobileTopicMenu] = useState(false);
+    const navigate = useNavigate();
+    const params = useParams();
     const getTopicsNameFn = async () => {
         try {
             const data = await SubjectApi({ "subject": "javascript" }); //2.change
-            // console.log(data);
             setTopics(data);
         } catch (error) {
             console.log(error);
@@ -30,7 +32,7 @@ const JavaScripts = () => {
             setCodes(data.code);
             setOutput(data.output)
             setSubtopics(data.subtopics);
-            // console.log(data.subtopics);
+            navigate(`/javascript/${value}`)
         } catch (error) {
             console.log(error);
         }
@@ -50,7 +52,13 @@ const JavaScripts = () => {
     }, [])
     useEffect(() => {
         if (topics.length > 0) {
-            topicDetailFn("JavaScript Introduction");
+            const { topics } = params;
+            console.log(topics);
+            if (topics) {
+                topicDetailFn(topics);
+            } else {
+                topicDetailFn("JavaScript Introduction");
+            }
         }
     }, [topics]);
     return (

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { SubjectApi, TopicDetailsApi } from '../../../Api/subjectApi';
 import Loader from '../../../component/Loader';
 import CodeHightLighter from '../../../component/CodeHightLighter';
+import { useNavigate, useParams } from 'react-router-dom';
+
 const CSSs = () => {
     const [topics, setTopics] = useState([]);
     const [topicName, setTopicName] = useState();
@@ -11,6 +13,8 @@ const CSSs = () => {
     const [subtopics, setSubtopics] = useState([]);
     const [topicDownload, setTopicDownload] = useState();
     const [mobileTopicsMenu, setMobileTopicMenu] = useState(false);
+    const navigate = useNavigate();
+    const params = useParams();
     const getTopicsNameFn = async () => {
         try {
             const data = await SubjectApi({ "subject": "css" });
@@ -31,6 +35,8 @@ const CSSs = () => {
             setOutput(data.output)
             setSubtopics(data.subtopics);
             // console.log(data.subtopics);
+            navigate(`/css/${value}`)
+
         } catch (error) {
             console.log(error);
         }
@@ -50,7 +56,13 @@ const CSSs = () => {
     }, [])
     useEffect(() => {
         if (topics?.length > 0) {
-            topicDetailFn("css introduction");
+            const { topics } = params;
+            console.log(topics);
+            if (topics) {
+                topicDetailFn(topics);
+            } else {
+                topicDetailFn("css introduction");
+            }
         }
     }, [topics]);
     useEffect(() => {
