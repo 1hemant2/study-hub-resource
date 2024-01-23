@@ -7,12 +7,11 @@ const postSchema = new mongoose.Schema({
     },
     topicName: {
         type: String,
-        // unique: true,
+        unique: true,
         required: true
     },
     topicDetails: {
         type: String,
-        required: true,
     },
     downloadResource: {
         type: String,

@@ -149,10 +149,6 @@ const CreatePost = () => {
                 </div>
 
                 <hr />
-                <div className='flex flex-row space-x-2 m-2 justify-center'>
-                    <div className='bg-slate-400 w-28 h-8 flex items-center justify-center cursor-pointer' onClick={handleAddSubtopic}>sub topics</div>
-
-                </div>
                 <div className='flex flex-col m-10'>
 
                     {/* Dynamically render input fields for subtopics */}
@@ -214,6 +210,10 @@ const CreatePost = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+                <div className='flex flex-row space-x-2 m-2 justify-center'>
+                    <div className='bg-slate-400 w-28 h-8 flex items-center justify-center cursor-pointer' onClick={handleAddSubtopic}>sub topics</div>
+
                 </div>
                 <hr />
                 <div className='m-5'>
