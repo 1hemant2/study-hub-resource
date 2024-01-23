@@ -92,7 +92,7 @@ const CSSs = () => {
                             {
                                 topics && topics.map((t) => {
                                     return (<div key={t}>
-                                        <div className={`m-2 cursor-pointer text-blue-950 ${t === topicName && 'underline text-red-400 '}`}
+                                        <div className={`m-2 cursor-pointer text-blue-950 ${t === topicName && 'underline text-orange-900 '}`}
                                             onClick={() => {
                                                 topicDetailFn(t);
                                             }}
@@ -153,7 +153,7 @@ const CSSs = () => {
                         }
                         <div className='h-[500px] overflow-y-auto flex flex-row justify-between '>
                             {
-                                topicDetails ? (<button className='bg-slate-900 text-white h-6 cursor-pointer' onClick={handleDownload}><i className="ri-file-download-fill"></i> download resource</button>) : <Loader></Loader>
+                                topicDownload ? (<button className='bg-slate-900 text-white h-6 cursor-pointer' onClick={handleDownload}><i className="ri-file-download-fill"></i> download resource</button>) : <Loader></Loader>
                             }
                             <div className='flex flex-row m-3 space-x-4 text-2xl '>
                                 {
@@ -196,7 +196,7 @@ const CSSs = () => {
                                         {
                                             topics && topics.map((t) => {
                                                 return (<div key={t}>
-                                                    <div className={`m-2 cursor-pointer text-blue-950 ${t === topicName && 'underline text-red-400 '}`}
+                                                    <div className={`m-2 cursor-pointer text-blue-950 ${t === topicName && 'underline text-orange-900 '}`}
                                                         onClick={() => {
                                                             topicDetailFn(t);
                                                             setMobileTopicMenu(!mobileTopicsMenu)
@@ -259,7 +259,7 @@ const CSSs = () => {
 
                         <div className='h-[300px] flex flex-row justify-between '>
                             {
-                                topicDetails ? (
+                                topicDownload ? (
                                     <>
                                         <button className='bg-slate-900 text-white h-6 cursor-pointer' onClick={handleDownload}><i className="ri-file-download-fill"></i> download resource</button>
 
