@@ -68,10 +68,10 @@ const CSSs = () => {
     }, [])
     useEffect(() => {
         if (topics?.length > 0) {
-            const { topics } = params;
-            console.log(topics);
-            if (topics) {
-                topicDetailFn(topics);
+            const { parameter } = params;
+            // console.log(topic);
+            if (parameter) {
+                topicDetailFn(parameter);
             } else {
                 topicDetailFn("css introduction");
             }
@@ -92,7 +92,7 @@ const CSSs = () => {
                             {
                                 topics && topics.map((t) => {
                                     return (<div key={t}>
-                                        <div className='m-2 cursor-pointer text-blue-950'
+                                        <div className={`m-2 cursor-pointer text-blue-950 ${t === topicName && 'underline text-red-400 '}`}
                                             onClick={() => {
                                                 topicDetailFn(t);
                                             }}
@@ -196,7 +196,7 @@ const CSSs = () => {
                                         {
                                             topics && topics.map((t) => {
                                                 return (<div key={t}>
-                                                    <div className='m-2 cursor-pointer text-blue-950 hover:bg-red-600'
+                                                    <div className={`m-2 cursor-pointer text-blue-950 ${t === topicName && 'underline text-red-400 '}`}
                                                         onClick={() => {
                                                             topicDetailFn(t);
                                                             setMobileTopicMenu(!mobileTopicsMenu)
