@@ -282,7 +282,6 @@ const HTMLs = () => {
                                     >Next</div>)
                                 }
                             </div>
-
                         </div>
                     </div>
                 </div>
