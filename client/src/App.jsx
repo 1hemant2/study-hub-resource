@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import Loader from './component/Loader';
 import Admin from './admin/Admin';
 import { MyProvider } from './component/Mycontext';
+import SearchResultData from './Pages/Searchs/SearchResultData';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -43,6 +44,7 @@ function App() {
 
               <Route path='/searchResult' element={<ProtectedPage><SearchReult></SearchReult></ProtectedPage>}
               ></Route>
+              <Route path='/searchResultData/:subject/:topicName' element={<ProtectedPage><SearchResultData></SearchResultData></ProtectedPage>}></Route>
             </Routes>
           </BrowserRouter>
         </MyProvider>

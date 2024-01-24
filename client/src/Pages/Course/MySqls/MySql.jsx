@@ -100,7 +100,7 @@ const MySql = () => {
                             }
                         </div>
                     </div>
-                    <div className='w-10/12 h-[900px] overflow-y-auto ml-3 mr-3'>
+                    <div className='w-10/12 h-[900px] overflow-y-auto ml-3 pr-3'>
                         <div className='text-xl flex items-center justify-center mt-2 underline text-sky-600'>
                             {topicName}
                         </div>

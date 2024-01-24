@@ -2,17 +2,20 @@ import React, { useContext, useEffect, useState } from 'react'
 import { serachDataApi } from '../../Api/subjectApi';
 import { MyContext } from '../../component/Mycontext';
 import NoSearchResult from './NoSearchResult';
+import { useNavigate } from 'react-router-dom';
 
 const SearchReult = () => {
     const [topics, setTopics] = useState([]);
     const { serachValue } = useContext(MyContext);
+    const navigate = useNavigate();
     const onSearch = async () => {
         const backendData = await serachDataApi(serachValue);
         console.log(backendData)
         setTopics(backendData);
     };
     const handleNavigate = async (topicName, subjectName) => {
-        console.log(topicName, subjectName);
+        navigate(`/searchResultData/${subjectName}/${topicName}`);
+        // console.log(topicName, subjectName);
     }
     useEffect(() => {
         onSearch();
@@ -21,7 +24,7 @@ const SearchReult = () => {
         <div className='w-full flex flex-row mt-5'>
             <div className='w-1/5'></div>
             <div className='w-3/5 '>
-                <div className='flex justify-center font-bold'>{serachValue ? (<div>select the topic to continue</div>) : (<div>enter the topic name in search box </div>)}</div>
+                <div className='flex justify-center text-2xl'>{serachValue ? (<div>select the topic to continue</div>) : (<div>enter the topic name in search box </div>)}</div>
                 <div className='h-[700px] overflow-y-auto '>
                     {
                         topics.length > 0 ?
