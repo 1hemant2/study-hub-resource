@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const elasticlunr = require('elasticlunr');
 const postSchema = new mongoose.Schema({
     subject: {
         type: String,
@@ -34,5 +34,31 @@ const postSchema = new mongoose.Schema({
 }, {
     timestamps: true
 })
+postSchema.index({
+    topicName: 'text',
+});
 const Post = mongoose.model("Post", postSchema);
-module.exports = Post;
+
+// Create Elasticlunr.js index for topicName field only
+const index = elasticlunr(function () {
+    this.addField('topicName');
+    this.setRef('id');
+});
+
+// Index existing data
+Post.find().then(posts => {
+    posts.forEach(post => {
+        index.addDoc({ id: post._id, topicName: post.topicName });
+    });
+})
+    .catch(err => {
+        console.error('Error indexing data:', err);
+    });
+
+// Function to search topics by topicName using Elasticlunr.js
+function searchTopics(query) {
+    const searchResult = index.search(query, { expand: true });
+    return searchResult;
+}
+
+module.exports = { Post, searchTopics };

@@ -1,17 +1,17 @@
 import { Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 const { Search } = Input;
-
+import { MyContext } from '../../component/Mycontext';
+import { useContext } from 'react';
 
 
 const Searchs = () => {
     const navigate = useNavigate();
+    const { setSearch } = useContext(MyContext);
     const onSearch = async (value) => {
-        localStorage.setItem('searchValue', value);
-        console.log(value);
+        setSearch(value);
         navigate('/searchResult');
     };
-
     return (
         <div>
             <div>

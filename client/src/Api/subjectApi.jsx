@@ -32,12 +32,13 @@ export const TopicDetailsApi = async (subject, topic) => {
                 topic: topic
             }
         })
-        console.log(response.data);
+        // console.log(response.data);
         return response.data.data;
     } catch (error) {
         return error;
     }
 }
+
 
 export const serachDataApi = async (topic) => {
     try {
@@ -47,7 +48,7 @@ export const serachDataApi = async (topic) => {
                 topic: topic
             }
         })
-        console.log(response.data)
+        console.log(response.data.data)
         return response.data.data;
     } catch (error) {
         return error;

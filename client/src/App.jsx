@@ -12,7 +12,7 @@ import MySqls from './Pages/Course/MySqls/MySql';
 import { useEffect, useState } from 'react';
 import Loader from './component/Loader';
 import Admin from './admin/Admin';
-
+import { MyProvider } from './component/Mycontext';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -27,24 +27,25 @@ function App() {
   return (
     <>
       {loading ? (<Loader></Loader>) :
-        <BrowserRouter>
-          <Routes>
-            <Route path='/admin' element={<Admin><CreatePost></CreatePost></Admin>}></Route>
-            <Route path='/' element={<ProtectedPage><Home></Home></ProtectedPage>}></Route>
-            <Route path='/html/:topics?' element={<ProtectedPage><HTMLs></HTMLs></ProtectedPage>}></Route>
-            <Route path='/css/:topics?' element={<ProtectedPage><CSSs></CSSs></ProtectedPage>}></Route>
-            <Route path='/javascript/:topics?' element={<ProtectedPage><JavaScripts></JavaScripts></ProtectedPage>}
-            ></Route>
-            <Route path='/react/:topics?' element={<ProtectedPage><Reacts></Reacts></ProtectedPage>}
-            ></Route>
-            <Route path='/mysql/:topics?' element={<ProtectedPage><MySqls></MySqls></ProtectedPage>}
-            ></Route>
+        <MyProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/admin' element={<Admin><CreatePost></CreatePost></Admin>}></Route>
+              <Route path='/' element={<ProtectedPage><Home></Home></ProtectedPage>}></Route>
+              <Route path='/html/:topics?' element={<ProtectedPage><HTMLs></HTMLs></ProtectedPage>}></Route>
+              <Route path='/css/:topics?' element={<ProtectedPage><CSSs></CSSs></ProtectedPage>}></Route>
+              <Route path='/javascript/:topics?' element={<ProtectedPage><JavaScripts></JavaScripts></ProtectedPage>}
+              ></Route>
+              <Route path='/react/:topics?' element={<ProtectedPage><Reacts></Reacts></ProtectedPage>}
+              ></Route>
+              <Route path='/mysql/:topics?' element={<ProtectedPage><MySqls></MySqls></ProtectedPage>}
+              ></Route>
 
-            <Route path='/searchResult' element={<ProtectedPage><SearchReult></SearchReult></ProtectedPage>}
-            ></Route>
-          </Routes>
-        </BrowserRouter>
-
+              <Route path='/searchResult' element={<ProtectedPage><SearchReult></SearchReult></ProtectedPage>}
+              ></Route>
+            </Routes>
+          </BrowserRouter>
+        </MyProvider>
       }
     </>
   )

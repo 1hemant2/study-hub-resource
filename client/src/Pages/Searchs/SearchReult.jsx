@@ -1,31 +1,43 @@
-import React, { useEffect, useState } from 'react'
-import { Input } from 'antd';
+import React, { useContext, useEffect, useState } from 'react'
 import { serachDataApi } from '../../Api/subjectApi';
+import { MyContext } from '../../component/Mycontext';
+import NoSearchResult from './NoSearchResult';
 
 const SearchReult = () => {
-    const [topics, setTopics] = useState({});
-
+    const [topics, setTopics] = useState([]);
+    const { serachValue } = useContext(MyContext);
     const onSearch = async () => {
-        const value = localStorage.getItem("searchValue")
-        const response = await serachDataApi(value);
-        setTopics((prevTopics) => ({ ...prevTopics, ...response[0] }));
-        // if(!response){
-        // setTopics((prevTopics) => ({ ...prevTopics, {data:no data found}));
-        // }
-        console.log(response[0]);
+        const backendData = await serachDataApi(serachValue);
+        console.log(backendData)
+        setTopics(backendData);
     };
+    const handleNavigate = async (topicName, subjectName) => {
+        console.log(topicName, subjectName);
+    }
     useEffect(() => {
         onSearch();
-    }, [])
+    }, [serachValue])
     return (
-        <div className='flex flex-row'>
-            <div className='w-1/6'></div>
-            <div className='w-4/6 bg-slate-50'>
-                <div className='text-xl underline flex justify-center mt-2'>{topics.topicName} ({topics.subject})</div>
-                <div className='m-2'>{topics.topicDetails}</div>
-                <button className='bg-slate-900 text-white h-6'><i className="ri-file-download-fill"></i> download resource</button>
+        <div className='w-full flex flex-row mt-5'>
+            <div className='w-1/5'></div>
+            <div className='w-3/5 '>
+                <div className='flex justify-center font-bold'>{serachValue ? (<div>select the topic to continue</div>) : (<div>enter the topic name in search box </div>)}</div>
+                <div className='h-[700px] overflow-y-auto '>
+                    {
+                        topics.length > 0 ?
+                            topics.map((t, index) => (
+                                <div key={index} className='mt-6  text-blue-500 cursor-pointer '
+                                    onClick={() => handleNavigate(t.topicName, t.subject)}
+                                >
+                                    {t.topicName}
+                                    <hr></hr>
+                                </div>
+                            )) : <NoSearchResult></NoSearchResult>
+                    }
+                </div>
             </div>
-            <div className='w-1/6'></div>
+            <div className='w-1/5'></div>
+
 
         </div>
     )

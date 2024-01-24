@@ -1,4 +1,4 @@
-const Post = require('../model/Post');
+const { Post, searchTopics } = require('../model/Post');
 
 exports.createPost = async (req, res) => {
     try {
@@ -76,11 +76,18 @@ exports.getSearch = async (req, res) => {
     try {
         const topic = req.query.topic;
         // console.log(topic);
-        const topics = topic.toLowerCase();
-        const data = await Post.find({ topicName: topics });
-        // console.log(data);
+        const searchResults = searchTopics(topic);
+        const topicNamePromise = searchResults.map(async t => {
+            const post = await Post.findById(t.ref);
+            return {
+                subject: post.subject,
+                topicName: post.topicName
+            };
+        })
+        const posts = await Promise.all(topicNamePromise);
+        // console.log(topicName)
         res.send({
-            data: data,
+            data: posts,
             success: true,
         })
     } catch (error) {
