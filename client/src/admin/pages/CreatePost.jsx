@@ -38,7 +38,7 @@ const CreatePost = () => {
     }
     const handleAddSubtopic = () => {
         // Add a new empty subtopic field
-        setSubtopics([...subtopics, { name: '', details: '' }]);
+        setSubtopics([...subtopics, {}]);
     };
     const handleSubtopicChange = (index, property, value) => {
         // Update the subtopics array based on user input
@@ -49,7 +49,10 @@ const CreatePost = () => {
         };
         setSubtopics(updatedSubtopics);
     };
-
+    const handleDeleteSubtopics = (indexToRemove) => {
+        const newSubtopics = subtopics.filter((_, index) => index !== indexToRemove);
+        setSubtopics(newSubtopics);
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         const updatedData = {
@@ -61,7 +64,7 @@ const CreatePost = () => {
         //setData({});
     }
     return (
-        <div className='bg-slate-300'>
+        <div className='bg-slate-300 overflow-y-auto h-screen '>
             <div className='modal flex justify-end'>
                 <Button type="" className='bg-slate-600 text-white' onClick={showModal}>
                     FILL DATA ?
@@ -143,7 +146,7 @@ const CreatePost = () => {
                     <label htmlFor="topicDetails" className='text-2xl flex justify-center'>code</label>
                     <textarea type="text" rows={20} name='code' onChange={handleChange} />
                 </div>
-                <div className=' flex flex-col m-5'>
+                <div className=' flex flex-col m-5 '>
                     <label htmlFor="topicDetails" className='text-2xl flex justify-center'>output</label>
                     <textarea type="text" rows={5} name='output' onChange={handleChange} />
                 </div>
@@ -153,7 +156,15 @@ const CreatePost = () => {
 
                     {/* Dynamically render input fields for subtopics */}
                     {subtopics.map((subtopic, index) => (
-                        <div key={index} className='mt-5'>
+                        <div key={index} className='mt-8 border border-solid border-black p-4'>
+                            <div className='text-5xl flex justify-center mb-4'
+
+                            >
+                                <i className="ri-delete-bin-line cursor-pointer"
+                                    onClick={() => handleDeleteSubtopics(index)}>
+
+                                </i>
+                            </div>
                             <div className='flex flex-row '>
                                 <label htmlFor={`subtopicName-${index}`} className="text-xl flex justify-center">
                                     Subtopic{index + 1} Name
@@ -167,8 +178,6 @@ const CreatePost = () => {
                                     onChange={(e) => handleSubtopicChange(index, 'name', e.target.value)}
                                 />
                             </div>
-
-
                             <div className='flex flex-col mt-1'>
                                 <label htmlFor={`subtopicDetails-${index}`} className="text-2xl flex justify-center">
                                     Subtopic {index + 1} Details
@@ -212,8 +221,8 @@ const CreatePost = () => {
                     ))}
                 </div>
                 <div className='flex flex-row space-x-2 m-2 justify-center'>
-                    <div className='bg-slate-400 w-28 h-8 flex items-center justify-center cursor-pointer' onClick={handleAddSubtopic}>sub topics</div>
-
+                    <div className='bg-slate-400 w-28 h-8 flex items-center justify-center cursor-pointer' onClick={handleAddSubtopic}>add sub topics
+                    </div>
                 </div>
                 <hr />
                 <div className='m-5'>
@@ -221,7 +230,7 @@ const CreatePost = () => {
                     <input type="url" name='downloadResource' onChange={handleChange} className=' h-5 w-full' />
                 </div>
                 <hr />
-                <div className='w-full flex justify-center'>
+                <div className='w-full flex justify-center mb-20'>
                     <button type='submit' className='h-10 w-52 mt-2 bg-slate-500 cursor-pointer'>create Post</button>
                 </div>
             </form>
