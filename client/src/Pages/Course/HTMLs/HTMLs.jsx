@@ -20,9 +20,10 @@ const HTMLs = () => {
     const [postId, setPostId] = useState();
     const [isEditing, setIsEditing] = useState({});
     const [orginalValue, setOriginalValue] = useState({})
+    const [subTopicIndex, setSubTopicIndex] = useState();
+    const [originalSubTopicValue, setOriginalSubTopicValue] = useState({});
     const navigate = useNavigate();
     const params = useParams();
-
 
     const getTopicsNameFn = async () => {
         try {
@@ -90,6 +91,44 @@ const HTMLs = () => {
     }
     const handleChange = (key, value) => {
         key(value);
+    }
+    const handleSubtopicIndex = (index) => {
+        setOriginalSubTopicValue({
+            'name': subtopics[index]?.name,
+            'details': subtopics[index]?.details,
+            'code': subtopics[index]?.code,
+            'output': subtopics[index]?.output
+        });
+        setSubTopicIndex(index);
+    }
+    const handleSubtopicChange = (index, name, value) => {
+        const updatedSubtopics = [...subtopics];
+        updatedSubtopics[index] = {
+            ...updatedSubtopics[index],
+            [name]: value
+        }
+        setSubtopics(updatedSubtopics)
+    }
+    const handleSubtopicSave = async () => {
+        try {
+            const data = await editApi({
+                subtopics: subtopics,
+                postId: postId
+            });
+            console.log(data);
+            setSubTopicIndex(null);
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+    const handleSubtopicCancel = () => {
+        const updatedSubtopics = [...subtopics];
+        updatedSubtopics[subTopicIndex] = originalSubTopicValue;
+        setSubtopics(updatedSubtopics, postId);
+        setSubTopicIndex(null);
+
     }
     useEffect(() => {
         getTopicsNameFn();
@@ -282,32 +321,99 @@ const HTMLs = () => {
                         }
                         <div className='m-2 text-lg bg-blue-400'></div>
                         {
-                            subtopics?.map((st) => (
-
-                                <div key={st.name} className='mt-10'>
-                                    <div className='m-1  text-blue-700 text-xl flex justify-center'>{st.name}
-                                        <i className="ri-edit-line ml-2 cursor-pointer"></i>
-                                        {/* edit5 */}
-                                    </div>
-                                    <div className='m-1 '>{st.details}
-
-                                    </div>
-                                    {st.code &&
-                                        <div>
-                                            <CodeHightLighter language="html" code={st.code}></CodeHightLighter>
-
-                                            {/*6. change */}
+                            subtopics?.map((st, index) => (
+                                subTopicIndex === index ?
+                                    <div key={index}>
+                                        <div className='flex flex-row '>
+                                            <label htmlFor={`subtopicName-${index}`} className="text-xl flex justify-center">
+                                                Subtopic{index + 1} Name
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id={`subtopicName-${index}`}
+                                                name={`subtopicName-${index}`}
+                                                value={st.name}
+                                                className='ml-2 w-1/2 '
+                                                onChange={(e) => handleSubtopicChange(index, 'name', e.target.value)}
+                                            />
                                         </div>
-                                    }
-                                    {
-                                        st.output &&
-                                        <div>
-                                            <CodeHightLighter language="html" code={st.output}></CodeHightLighter>
-
-                                            {/* 7.change */}
+                                        <div className='flex flex-col mt-1'>
+                                            <label htmlFor={`subtopicDetails-${index}`} className="text-2xl flex justify-center">
+                                                Subtopic {index + 1} Details
+                                            </label>
+                                            <textarea
+                                                id={`subtopicDetails-${index}`}
+                                                name={`subtopicDetails-${index}`}
+                                                value={st.details}
+                                                rows={20}
+                                                onChange={(e) => handleSubtopicChange(index, 'details', e.target.value)}
+                                                className=''
+                                            />
                                         </div>
-                                    }
-                                </div>
+                                        <div className='flex flex-col mt-1'>
+                                            <label htmlFor={`code-${index}`} className="text-2xl flex justify-center">
+                                                code {index + 1}
+                                            </label>
+                                            <textarea
+                                                id={`code-${index}`}
+                                                name={`code-${index}`}
+                                                value={st.code}
+                                                rows={20}
+                                                onChange={(e) => handleSubtopicChange(index, 'code', e.target.value)}
+                                                className=''
+                                            />
+                                        </div>
+                                        <div className='flex flex-col mt-1'>
+                                            <label htmlFor={`code-${index}`} className="text-2xl flex justify-center">
+                                                output {index + 1}
+                                            </label>
+                                            <textarea
+                                                id={`output-${index}`}
+                                                name={`output-${index}`}
+                                                value={st.output}
+                                                rows={5}
+                                                onChange={(e) => handleSubtopicChange(index, 'output', e.target.value)}
+                                                className=''
+                                            />
+                                        </div>
+                                        <div className='flex flex-row'>
+                                            <button className='h-14 m-2 w-28'
+                                                onClick={handleSubtopicSave}
+                                            >save</button>
+                                            <button onClick={handleSubtopicCancel} className='h-14 m-2 w-28'
+                                                onAuxClick={handleSubtopicCancel}
+                                            >cancel</button>
+                                        </div>
+
+                                    </div>
+                                    :
+                                    <div key={index} className='mt-10'>
+                                        <i className="ri-edit-line ml-2 cursor-pointer text-2xl "
+                                            onClick={() => handleSubtopicIndex(index)}
+                                        ></i>
+
+                                        <div className='m-1  text-blue-700 text-xl flex justify-center'>{st.name}
+                                            {/* edit5 */}
+                                        </div>
+                                        <div className='m-1 '>{st.details}
+
+                                        </div>
+                                        {st.code &&
+                                            <div>
+                                                <CodeHightLighter language="html" code={st.code}></CodeHightLighter>
+
+                                                {/*6. change    */}
+                                            </div>
+                                        }
+                                        {
+                                            st.output &&
+                                            <div>
+                                                <CodeHightLighter language="html" code={st.output}></CodeHightLighter>
+
+                                                {/* 7.change */}
+                                            </div>
+                                        }
+                                    </div>
                             ))
                         }
                         <div className='h-[500px] overflow-y-auto flex flex-row justify-between '>

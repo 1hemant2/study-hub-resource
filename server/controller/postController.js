@@ -103,13 +103,13 @@ exports.editPost = async (req, res) => {
             downloadResource,
             codes,
             output,
-            subtopicName, currentSubtopicName,
-            subtopicDetails, currentSubtopicDetails,
-            subtopicCode, currentSubtopicCode,
-            subtopicOutput, currentSubtopicOutput,
+            subtopics,
             postId } = req.body;
         // console.log(codes);
+        // console.log(subtopics);
+        // console.log(postId);
         const post = await Post.findById(postId);
+        // console.log(post)
         if (!post) {
             return;
         }
@@ -128,21 +128,8 @@ exports.editPost = async (req, res) => {
         if (output) {
             post.output = output;
         }
-        if (subtopicName) {
-            const subtopicIndex = post.subtopics.findIndex(sub => sub.name === currentSubtopicName);
-            post.subtopics[subtopicIndex].name = subtopicName;
-        }
-        if (subtopicDetails) {
-            const subtopicIndex = post.subtopics.findIndex(sub => sub.details === currentSubtopicDetails);
-            post.subtopics[subtopicIndex].details = subtopicDetails;
-        }
-        if (subtopicCode) {
-            const subtopicIndex = post.subtopics.findIndex(sub => sub.code === currentSubtopicCode);
-            post.subtopics[subtopicIndex].code = subtopicCode;
-        }
-        if (subtopicOutput) {
-            const subtopicIndex = post.subtopics.findIndex(sub => sub.output === currentSubtopicOutput);
-            post.subtopics[subtopicIndex].output = subtopicOutput;
+        if (subtopics) {
+            post.subtopics = subtopics;
         }
         await post.save();
         res.send("post updated successfully")
