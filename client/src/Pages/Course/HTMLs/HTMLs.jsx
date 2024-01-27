@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { SubjectApi, TopicDetailsApi } from '../../../Api/subjectApi';
+import { SubjectApi, TopicDetailsApi, editApi } from '../../../Api/subjectApi';
 import Loader from '../../../component/Loader';
 import CodeHightLighter from '../../../component/CodeHightLighter';
 import { useNavigate, useParams } from 'react-router-dom';
+
 
 const HTMLs = () => {
     // 1.change
@@ -16,8 +17,12 @@ const HTMLs = () => {
     const [mobileTopicsMenu, setMobileTopicMenu] = useState(false);
     const [previousTopic, setPreviousTopic] = useState();
     const [nextTopic, setNextTopic] = useState();
+    const [postId, setPostId] = useState();
+    const [isEditing, setIsEditing] = useState({});
+    const [orginalValue, setOriginalValue] = useState({})
     const navigate = useNavigate();
     const params = useParams();
+
 
     const getTopicsNameFn = async () => {
         try {
@@ -32,11 +37,13 @@ const HTMLs = () => {
             // console.log(value);
             setTopicName(value);
             const data = await TopicDetailsApi("html", value); //3.change
+            console.log(data);
             setTopicDetails(data.topicDetails);
             setTopicDownload(data.downloadResource)
             setCodes(data.code);
             setOutput(data.output)
             setSubtopics(data.subtopics);
+            setPostId(data._id)
             navigate(`/html/${value}`)
             const indexOfTopic = topics.indexOf(value);
             if (indexOfTopic > 0) {
@@ -64,7 +71,26 @@ const HTMLs = () => {
     const hanldeMobileMenuTopics = () => {
         setMobileTopicMenu(!mobileTopicsMenu);
     }
+    const handleUpdate = (key, value) => {
 
+        setOriginalValue({ [key]: value })
+        setIsEditing({ [key]: true });
+    }
+    const handleCancel = (key) => {
+        setTopicName(orginalValue[key]);
+        setIsEditing({ [key]: false });
+    }
+    const handleSave = async (key, value) => {
+        setIsEditing({ etopicName: false });
+        const data = await editApi({
+            postId: postId,
+            [key]: value
+        })
+        console.log(data);
+    }
+    const handleChange = (e) => {
+        setTopicName(e.target.value);
+    }
     useEffect(() => {
         getTopicsNameFn();
     }, [])
@@ -80,6 +106,15 @@ const HTMLs = () => {
             }
         }
     }, [topics]);
+
+    useEffect(() => {
+        subtopics.map((ele, ind) => {
+            isEditing[ele.name + ind] = false
+            isEditing[ele.details + ind] = false
+            isEditing[ele.code + ind] = false
+            isEditing[ele.output + ind] = false
+        })
+    }, [subtopics])
     return (
         <div >
             {/* for laptop */}
@@ -106,15 +141,47 @@ const HTMLs = () => {
                     </div>
                     <div className='w-10/12 h-[900px] overflow-y-auto ml-3 pr-3'>
                         <div className='text-xl flex items-center justify-center mt-2 underline text-sky-600'>
-                            {topicName}
+                            {
+                                isEditing.etopicName ?
+                                    <>
+                                        <input
+                                            value={topicName}
+                                            type='text'
+                                            onChange={(e) => handleChange(e)}
+                                            className='text-xl'
+                                        ></input>
+                                        <button className='ml-2'
+                                            onClick={() => handleSave('topicName', topicName)}
+                                        >save</button>
+                                        <button className='ml-2'
+                                            onClick={() => handleCancel('etopicName')}
+                                        >cancel</button>
+                                    </>
+                                    : (
+                                        <>
+                                            {topicName}
+                                            <i className="ri-edit-line ml-2 cursor-pointer"
+                                                onClick={() => handleUpdate('etopicName', topicName)}
+                                            ></i>
+                                        </>
+                                    )
+                            }
+
+                            {/* edit1 */}
                         </div>
                         {/* call api and display data instead of topic content */}
-                        <div className='m-2 text-lg'>{topicDetails}</div>
+                        <div className='m-2 text-lg'>
+                            {topicDetails}
+                            <i className="ri-edit-line ml-2 cursor-pointer"></i>
+                            {/* edit2 */}
+                        </div>
 
                         {
                             codes &&
                             <div>
                                 <CodeHightLighter language="html" code={codes}></CodeHightLighter>
+                                <i className="ri-edit-line ml-2 cursor-pointer"></i>
+                                {/* edit3 */}
                                 {/* 4.change */}
                             </div>
                         }
@@ -125,18 +192,28 @@ const HTMLs = () => {
                             <div>
                                 <div>output:</div>
                                 <CodeHightLighter language="html" code={output}></CodeHightLighter>
+                                <i className="ri-edit-line ml-2 cursor-pointer"></i>
+                                {/* edit4 */}
                                 {/* 5.change */}
                             </div>
                         }
                         <div className='m-2 text-lg bg-blue-400'></div>
                         {
-                            subtopics?.map(st => (
+                            subtopics?.map((st) => (
                                 <div key={st.name} className='mt-10'>
-                                    <div className='m-1  text-blue-700 text-xl flex justify-center'>{st.name}</div>
-                                    <div className='m-1 '>{st.details}</div>
+                                    <div className='m-1  text-blue-700 text-xl flex justify-center'>{st.name}
+                                        <i className="ri-edit-line ml-2 cursor-pointer"></i>
+                                        {/* edit5 */}
+                                    </div>
+                                    <div className='m-1 '>{st.details}
+                                        <i className="ri-edit-line ml-2 cursor-pointer"></i>
+                                        {/* edit6 */}
+                                    </div>
                                     {st.code &&
                                         <div>
                                             <CodeHightLighter language="html" code={st.code}></CodeHightLighter>
+                                            <i className="ri-edit-line ml-2 cursor-pointer"></i>
+                                            {/* edit7 */}
                                             {/*6. change */}
                                         </div>
                                     }
@@ -144,6 +221,8 @@ const HTMLs = () => {
                                         st.output &&
                                         <div>
                                             <CodeHightLighter language="html" code={st.output}></CodeHightLighter>
+                                            <i className="ri-edit-line ml-2 cursor-pointer"></i>
+                                            {/* edit8 */}
                                             {/* 7.change */}
                                         </div>
                                     }

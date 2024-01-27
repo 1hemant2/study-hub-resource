@@ -95,3 +95,57 @@ exports.getSearch = async (req, res) => {
     }
 }
 
+exports.editPost = async (req, res) => {
+    try {
+        const {
+            topicName,
+            topicDetails,
+            downloadResource,
+            code,
+            output,
+            subtopicName, currentSubtopicName,
+            subtopicDetails, currentSubtopicDetails,
+            subtopicCode, currentSubtopicCode,
+            subtopicOutput, currentSubtopicOutput,
+            postId } = req.body;
+        const post = await Post.findById(postId);
+        if (!post) {
+            return;
+        }
+        if (topicName) {
+            post.topicName = topicName;
+        }
+        if (topicDetails) {
+            post.topicDetails = topicDetails;
+        }
+        if (downloadResource) {
+            post.downloadResource = downloadResource;
+        }
+        if (code) {
+            post.code = code;
+        }
+        if (output) {
+            post.output = output;
+        }
+        if (subtopicName) {
+            const subtopicIndex = post.subtopics.findIndex(sub => sub.name === currentSubtopicName);
+            post.subtopics[subtopicIndex].name = subtopicName;
+        }
+        if (subtopicDetails) {
+            const subtopicIndex = post.subtopics.findIndex(sub => sub.details === currentSubtopicDetails);
+            post.subtopics[subtopicIndex].details = subtopicDetails;
+        }
+        if (subtopicCode) {
+            const subtopicIndex = post.subtopics.findIndex(sub => sub.code === currentSubtopicCode);
+            post.subtopics[subtopicIndex].code = subtopicCode;
+        }
+        if (subtopicOutput) {
+            const subtopicIndex = post.subtopics.findIndex(sub => sub.output === currentSubtopicOutput);
+            post.subtopics[subtopicIndex].output = subtopicOutput;
+        }
+        await post.save();
+        res.send("post updated successfully")
+    } catch (error) {
+        res.send(error);
+    }
+}

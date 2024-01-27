@@ -4,5 +4,6 @@ router.post('/createPost', postController.createPost)
     .get('/getSubject', postController.getSubject)
     .get('/getTopicDetials', postController.getTopicDetials)
     .get('/getSerchResult', postController.getSearch)
+    .patch('/editPost', postController.editPost)
 
 module.exports = router;

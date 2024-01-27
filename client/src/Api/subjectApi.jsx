@@ -26,14 +26,14 @@ export const SubjectApi = async (payload) => {
 
 export const TopicDetailsApi = async (subject, topic) => {
     try {
-        console.log(subject, topic);
+        // console.log(subject, topic);
         const response = await apiInstances.get('/api/posts/getTopicDetials', {
             params: {
                 subject: subject,
                 topic: topic
             }
         })
-        console.log(response.data);
+        // console.log(response.data);
         return response.data.data;
     } catch (error) {
         return error;
@@ -51,6 +51,16 @@ export const serachDataApi = async (topic) => {
         })
         console.log(response.data.data)
         return response.data.data;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const editApi = async (payload) => {
+    try {
+        console.log(payload);
+        const response = await apiInstances.patch('/api/Posts/editPost', payload);
+        return response;
     } catch (error) {
         return error;
     }

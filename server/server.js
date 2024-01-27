@@ -10,11 +10,7 @@ const database = require('../server/config/Database');
 const postRoute = require('../server/routes/PostRoute');
 app.use('/api/Posts', postRoute);
 
-//to cehck the connection
-// app.use((req, res, next) => {
-//     console.log(req.body);
-//     next();
-// })
+
 
 const server = app.listen(port, () => {
     console.log(`server has been started on port ${port}`)
