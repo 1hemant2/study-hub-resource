@@ -101,13 +101,14 @@ exports.editPost = async (req, res) => {
             topicName,
             topicDetails,
             downloadResource,
-            code,
+            codes,
             output,
             subtopicName, currentSubtopicName,
             subtopicDetails, currentSubtopicDetails,
             subtopicCode, currentSubtopicCode,
             subtopicOutput, currentSubtopicOutput,
             postId } = req.body;
+        // console.log(codes);
         const post = await Post.findById(postId);
         if (!post) {
             return;
@@ -121,8 +122,8 @@ exports.editPost = async (req, res) => {
         if (downloadResource) {
             post.downloadResource = downloadResource;
         }
-        if (code) {
-            post.code = code;
+        if (codes) {
+            post.code = codes;
         }
         if (output) {
             post.output = output;

@@ -37,7 +37,7 @@ const HTMLs = () => {
             // console.log(value);
             setTopicName(value);
             const data = await TopicDetailsApi("html", value); //3.change
-            console.log(data);
+            // console.log(data);
             setTopicDetails(data.topicDetails);
             setTopicDownload(data.downloadResource)
             setCodes(data.code);
@@ -72,7 +72,7 @@ const HTMLs = () => {
         setMobileTopicMenu(!mobileTopicsMenu);
     }
     const handleUpdate = (key, value) => {
-
+        console.log(key, value);
         setOriginalValue({ [key]: value })
         setIsEditing({ [key]: true });
     }
@@ -88,8 +88,8 @@ const HTMLs = () => {
         })
         console.log(data);
     }
-    const handleChange = (e) => {
-        setTopicName(e.target.value);
+    const handleChange = (key, value) => {
+        key(value);
     }
     useEffect(() => {
         getTopicsNameFn();
@@ -140,28 +140,29 @@ const HTMLs = () => {
                         </div>
                     </div>
                     <div className='w-10/12 h-[900px] overflow-y-auto ml-3 pr-3'>
+                        {/*1. topic name */}
                         <div className='text-xl flex items-center justify-center mt-2 underline text-sky-600'>
                             {
-                                isEditing.etopicName ?
+                                isEditing.topicName ?
                                     <>
                                         <input
                                             value={topicName}
                                             type='text'
-                                            onChange={(e) => handleChange(e)}
+                                            onChange={(e) => handleChange(setTopicName, e.target.value)}
                                             className='text-xl'
                                         ></input>
                                         <button className='ml-2'
                                             onClick={() => handleSave('topicName', topicName)}
                                         >save</button>
                                         <button className='ml-2'
-                                            onClick={() => handleCancel('etopicName')}
+                                            onClick={() => handleCancel('topicName')}
                                         >cancel</button>
                                     </>
                                     : (
                                         <>
                                             {topicName}
                                             <i className="ri-edit-line ml-2 cursor-pointer"
-                                                onClick={() => handleUpdate('etopicName', topicName)}
+                                                onClick={() => handleUpdate('topicName', topicName)}
                                             ></i>
                                         </>
                                     )
@@ -169,51 +170,132 @@ const HTMLs = () => {
 
                             {/* edit1 */}
                         </div>
-                        {/* call api and display data instead of topic content */}
+
+
+                        {/*2. topicDetials */}
                         <div className='m-2 text-lg'>
-                            {topicDetails}
-                            <i className="ri-edit-line ml-2 cursor-pointer"></i>
-                            {/* edit2 */}
+                            {
+                                isEditing.topicDetails ?
+                                    <div className='flex flex-col'>
+                                        <textarea
+                                            value={topicDetails}
+                                            type='text'
+                                            onChange={(e) => handleChange(setTopicDetails, e.target.value)}
+                                            rows={10}
+                                            className='text-xl'
+                                        ></textarea>
+                                        <div>
+                                            <button className='ml-2 w-20'
+                                                onClick={() => handleSave('topicDetails', topicDetails)}
+                                            >save</button>
+                                            <button className='ml-2 w-20'
+                                                onClick={() => handleCancel('topicDetails')}
+                                            >cancel</button>
+                                        </div>
+
+                                    </div> : (topicDetails &&
+                                        <>
+                                            {topicDetails}
+                                            <i className="ri-edit-line ml-2 cursor-pointer"
+                                                onClick={() => handleUpdate('topicDetails', topicDetails)}
+                                            ></i>
+                                        </>
+
+                                    )
+
+                            }
                         </div>
 
+
+                        {/*3. codes */}
                         {
-                            codes &&
-                            <div>
-                                <CodeHightLighter language="html" code={codes}></CodeHightLighter>
-                                <i className="ri-edit-line ml-2 cursor-pointer"></i>
-                                {/* edit3 */}
-                                {/* 4.change */}
-                            </div>
+                            isEditing.codes ?
+                                <>
+                                    <div className='flex flex-col'>
+                                        <textarea
+                                            value={codes}
+                                            type='text'
+                                            onChange={(e) => handleChange(setCodes, e.target.value)}
+                                            rows={10}
+                                            className='text-xl'
+                                        ></textarea>
+                                        <div>
+                                            <button className='ml-2 w-20'
+                                                onClick={() => handleSave('codes', codes)}
+                                            >save</button>
+                                            <button className='ml-2 w-20'
+                                                onClick={() => handleCancel('codes')}
+                                            >cancel</button>
+                                        </div>
+
+                                    </div>
+                                </> :
+                                (codes &&
+                                    <div>
+                                        <CodeHightLighter language="html" code={codes}></CodeHightLighter>
+                                        <i className="ri-edit-line ml-2 cursor-pointer"
+                                            onClick={() => handleUpdate('codes', codes)}
+                                        ></i>
+                                        {/* edit3 */}
+                                        {/* 4.change */}
+                                    </div>
+                                )
                         }
 
+                        {/* 4.output */}
 
                         {
-                            output &&
-                            <div>
-                                <div>output:</div>
-                                <CodeHightLighter language="html" code={output}></CodeHightLighter>
-                                <i className="ri-edit-line ml-2 cursor-pointer"></i>
-                                {/* edit4 */}
-                                {/* 5.change */}
-                            </div>
+                            isEditing.output ?
+                                <>
+                                    <div className='flex flex-col'>
+                                        <textarea
+                                            value={output}
+                                            type='text'
+                                            onChange={(e) => handleChange(setOutput, e.target.value)}
+                                            rows={10}
+                                            className='text-xl'
+                                        ></textarea>
+                                        <div>
+                                            <button className='ml-2 w-20'
+                                                onClick={() => handleSave('output', output)}
+                                            >save</button>
+                                            <button className='ml-2 w-20'
+                                                onClick={() => handleCancel('output')}
+                                            >cancel</button>
+                                        </div>
+
+                                    </div>
+                                </> :
+                                (
+                                    output && <div>
+                                        <div>output:</div>
+                                        <CodeHightLighter language="html" code={output}></CodeHightLighter>
+                                        <i className="ri-edit-line ml-2 cursor-pointer"
+                                            onClick={() => handleUpdate('output', output)}
+                                        ></i>
+                                        {/* edit4 */}
+                                        {/* 5.change */}
+                                    </div>
+
+                                )
+
                         }
                         <div className='m-2 text-lg bg-blue-400'></div>
                         {
                             subtopics?.map((st) => (
+
                                 <div key={st.name} className='mt-10'>
                                     <div className='m-1  text-blue-700 text-xl flex justify-center'>{st.name}
                                         <i className="ri-edit-line ml-2 cursor-pointer"></i>
                                         {/* edit5 */}
                                     </div>
                                     <div className='m-1 '>{st.details}
-                                        <i className="ri-edit-line ml-2 cursor-pointer"></i>
-                                        {/* edit6 */}
+
                                     </div>
                                     {st.code &&
                                         <div>
                                             <CodeHightLighter language="html" code={st.code}></CodeHightLighter>
-                                            <i className="ri-edit-line ml-2 cursor-pointer"></i>
-                                            {/* edit7 */}
+
                                             {/*6. change */}
                                         </div>
                                     }
@@ -221,8 +303,7 @@ const HTMLs = () => {
                                         st.output &&
                                         <div>
                                             <CodeHightLighter language="html" code={st.output}></CodeHightLighter>
-                                            <i className="ri-edit-line ml-2 cursor-pointer"></i>
-                                            {/* edit8 */}
+
                                             {/* 7.change */}
                                         </div>
                                     }
