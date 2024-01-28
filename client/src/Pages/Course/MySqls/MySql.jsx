@@ -150,7 +150,7 @@ const MySql = () => {
             if (parameter) {
                 topicDetailFn(parameter);
             } else {
-                topicDetailFn("Introduction to MySQL");
+                topicDetailFn(topics[0]);
             }
         }
     }, [topics]);

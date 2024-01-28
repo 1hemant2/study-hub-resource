@@ -4,10 +4,10 @@ import { TopicDetailsApi } from '../../Api/subjectApi';
 import { useState } from 'react';
 import CodeHightLighter from '../../component/CodeHightLighter';
 import Loader from '../../component/Loader';
-import { editApi } from '../../Api/subjectApi';
+import { editApi, deleteSubtopicApi, deltePostApi } from '../../Api/subjectApi';
+import { useNavigate } from 'react-router-dom';
 const SearchResultData = () => {
     const [topicName, setTopicName] = useState();
-    const [subjectName, setSubjectName] = useState();
     const [topicDetails, setTopicDetails] = useState(String);
     const [codes, setCodes] = useState();
     const [output, setOutput] = useState();
@@ -19,11 +19,12 @@ const SearchResultData = () => {
     const [subTopicIndex, setSubTopicIndex] = useState();
     const [originalSubTopicValue, setOriginalSubTopicValue] = useState({});
     const params = useParams();
+    const navigate = useNavigate();
     // console.log(params.subject);
     const topicDetailFn = async () => {
         try {
             // console.log(value);
-            setSubjectName(params.subject);
+            // setSubjectName(params.subject);
             setTopicName(params.topicName)
             const data = await TopicDetailsApi(params.subject, params.topicName); //3.change
             console.log(data);
@@ -104,6 +105,18 @@ const SearchResultData = () => {
         setSubTopicIndex(null);
 
     }
+    const handleDeleteSubtopics = async (index) => {
+        // console.log(index);
+        await deleteSubtopicApi({ index, postId });
+        // console.log(data);
+        const updatedSubtopics = [...subtopics];
+        updatedSubtopics.splice(index, 1);
+        setSubtopics(updatedSubtopics);
+    }
+    const handleDeletePost = async () => {
+        await deltePostApi({ postId: postId });
+        navigate('/html')
+    }
     useEffect(() => {
         topicDetailFn();
     }, [])
@@ -115,6 +128,10 @@ const SearchResultData = () => {
                 <div className='flex flex-row w-full'>
                     <div className='w-1/12'></div>
                     <div className='w-11/12 h-[900px] overflow-y-auto ml-3 pr-3'>
+                        <i className="ri-delete-bin-5-fill text-4xl flex justify-center cursor-pointer  
+                          hover:text-red-600 "
+                            onClick={handleDeletePost}
+                        ></i>
                         {/*1. topic name */}
                         <div className='text-xl flex items-center justify-center mt-2 underline text-sky-600'>
                             {
@@ -327,7 +344,9 @@ const SearchResultData = () => {
                                         <i className="ri-edit-line ml-2 cursor-pointer text-2xl "
                                             onClick={() => handleSubtopicIndex(index)}
                                         ></i>
-
+                                        <i className="ri-delete-bin-line cursor-pointer text-2xl hover:text-red-600 ml-4"
+                                            onClick={() => handleDeleteSubtopics(index)}
+                                        ></i>
                                         <div className='m-1  text-blue-700 text-xl flex justify-center'>{st.name}
                                             {/* edit5 */}
                                         </div>

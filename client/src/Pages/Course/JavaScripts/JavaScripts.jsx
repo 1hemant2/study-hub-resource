@@ -148,7 +148,7 @@ const JavaScripts = () => {
             if (parameter) {
                 topicDetailFn(parameter);
             } else {
-                topicDetailFn("JavaScript Introduction");
+                topicDetailFn(topics[0]);
             }
         }
     }, [topics]);

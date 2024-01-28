@@ -152,7 +152,7 @@ const CSSs = () => {
             if (parameter) {
                 topicDetailFn(parameter);
             } else {
-                topicDetailFn("css introduction");
+                topicDetailFn(topics[0]);
             }
         }
     }, [topics]);

@@ -152,7 +152,7 @@ const Reacts = () => {
             if (parameter) {
                 topicDetailFn(parameter);
             } else {
-                topicDetailFn("React Introduction");
+                topicDetailFn(topics[0]);
             }
         }
     }, [topics]);
