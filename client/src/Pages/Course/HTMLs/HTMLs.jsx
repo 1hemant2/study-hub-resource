@@ -73,12 +73,13 @@ const HTMLs = () => {
         setMobileTopicMenu(!mobileTopicsMenu);
     }
     const handleUpdate = (key, value) => {
-        console.log(key, value);
+        // console.log(key, value);
         setOriginalValue({ [key]: value })
         setIsEditing({ [key]: true });
     }
-    const handleCancel = (key) => {
-        setTopicName(orginalValue[key]);
+    const handleCancel = (key, value) => {
+
+        key(orginalValue[value]);
         setIsEditing({ [key]: false });
     }
     const handleSave = async (key, value) => {
@@ -146,14 +147,6 @@ const HTMLs = () => {
         }
     }, [topics]);
 
-    useEffect(() => {
-        subtopics.map((ele, ind) => {
-            isEditing[ele.name + ind] = false
-            isEditing[ele.details + ind] = false
-            isEditing[ele.code + ind] = false
-            isEditing[ele.output + ind] = false
-        })
-    }, [subtopics])
     return (
         <div >
             {/* for laptop */}
@@ -194,7 +187,7 @@ const HTMLs = () => {
                                             onClick={() => handleSave('topicName', topicName)}
                                         >save</button>
                                         <button className='ml-2'
-                                            onClick={() => handleCancel('topicName')}
+                                            onClick={() => handleCancel(setTopicName, 'topicName')}
                                         >cancel</button>
                                     </>
                                     : (
@@ -228,7 +221,7 @@ const HTMLs = () => {
                                                 onClick={() => handleSave('topicDetails', topicDetails)}
                                             >save</button>
                                             <button className='ml-2 w-20'
-                                                onClick={() => handleCancel('topicDetails')}
+                                                onClick={() => handleCancel(setTopicDetails, 'topicDetails')}
                                             >cancel</button>
                                         </div>
 
@@ -263,7 +256,7 @@ const HTMLs = () => {
                                                 onClick={() => handleSave('codes', codes)}
                                             >save</button>
                                             <button className='ml-2 w-20'
-                                                onClick={() => handleCancel('codes')}
+                                                onClick={() => handleCancel(setCodes, 'codes')}
                                             >cancel</button>
                                         </div>
 
@@ -299,7 +292,7 @@ const HTMLs = () => {
                                                 onClick={() => handleSave('output', output)}
                                             >save</button>
                                             <button className='ml-2 w-20'
-                                                onClick={() => handleCancel('output')}
+                                                onClick={() => handleCancel(setOutput, 'output')}
                                             >cancel</button>
                                         </div>
 
