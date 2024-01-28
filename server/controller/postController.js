@@ -109,9 +109,8 @@ exports.editPost = async (req, res) => {
         // console.log(subtopics);
         // console.log(postId);
         const post = await Post.findById(postId);
-        // console.log(post)
         if (!post) {
-            return;
+            throw new Error('post not found');
         }
         if (topicName) {
             post.topicName = topicName;
@@ -136,4 +135,52 @@ exports.editPost = async (req, res) => {
     } catch (error) {
         res.send(error);
     }
+}
+
+exports.deleteSubtopics = async (req, res) => {
+    try {
+        const { index, postId } = req.body;
+        // console.log(index, postId);
+        const post = await Post.findById(postId);
+        if (!post) {
+            throw new Error("post not found");
+        }
+        const updatedSubtopic = post.subtopics;
+        updatedSubtopic.splice(index, 1);
+        post.subtopics = updatedSubtopic;
+        await post.save();
+        res.send({
+            success: true,
+            data: "subtopic delete successfully"
+        });
+    } catch (error) {
+        res.send({
+            success: false,
+            data: error
+        })
+    }
+
+}
+
+exports.deletePost = async (req, res) => {
+    try {
+        // console.log('hi')
+        const postId = req.body.postId;
+        // console.log(postId);
+        const result = await Post.deleteOne({ _id: postId });
+        if (result.deletedCount < 0) {
+            throw new Error("something went wrong")
+        }
+        res.send({
+            data: "post deleted",
+            success: true
+        })
+    } catch (error) {
+        res.send({
+            success: false,
+            error: error
+        })
+    }
+
+
 }

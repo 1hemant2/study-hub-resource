@@ -58,10 +58,28 @@ export const serachDataApi = async (topic) => {
 
 export const editApi = async (payload) => {
     try {
-        console.log(payload);
+        // console.log(payload);
         const response = await apiInstances.patch('/api/Posts/editPost', payload);
         return response;
     } catch (error) {
         return error;
+    }
+}
+export const deleteSubtopicApi = async (payload) => {
+    try {
+        // console.log(payload);
+        const response = await apiInstances.patch('/api/Posts/deleteSubtopic', payload);
+        return response;
+    } catch (error) {
+        return error;
+    }
+}
+export const deltePostApi = async (payload) => {
+    try {
+        console.log(payload)
+        const response = await apiInstances.delete('/api/Posts/deletePost', { data: payload });
+        return response
+    } catch (error) {
+        return error
     }
 }
