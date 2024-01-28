@@ -14,7 +14,7 @@ import { Button, Modal } from 'antd'
 const CreatePost = () => {
     const [data, setData] = useState({});
     const [selectedOption, setSelectedOption] = useState('');
-    const [subtopics, setSubtopics] = useState([]);
+    const [subtopics, setSubtopics] = useState([{}]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
@@ -59,8 +59,10 @@ const CreatePost = () => {
             'initialData': data,
             'subtopics': subtopics,
         }
-        setData({ ...data, 'subtopics': subtopics });
+        // setData({ ...data, 'subtopics': subtopics });
         const response = await CreatePostApi(updatedData);
+        setData({});
+        setSubtopics([{}]);
         //setData({});
     }
     return (

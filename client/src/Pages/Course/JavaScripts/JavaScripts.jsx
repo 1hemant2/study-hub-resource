@@ -3,7 +3,7 @@ import { SubjectApi, TopicDetailsApi } from '../../../Api/subjectApi';
 import Loader from '../../../component/Loader';
 import CodeHightLighter from '../../../component/CodeHightLighter';
 import { useNavigate, useParams } from 'react-router-dom';
-import { editApi } from '../../../Api/subjectApi';
+import { editApi, deltePostApi, deleteSubtopicApi } from '../../../Api/subjectApi';
 const JavaScripts = () => {
     const [topics, setTopics] = useState([]);
     const [topicName, setTopicName] = useState();
@@ -125,6 +125,19 @@ const JavaScripts = () => {
         setSubTopicIndex(null);
 
     }
+    const handleDeleteSubtopics = async (index) => {
+        console.log(index);
+        const data = await deleteSubtopicApi({ index, postId });
+        console.log(data);
+        const updatedSubtopics = [...subtopics];
+        updatedSubtopics.splice(index, 1);
+        setSubtopics(updatedSubtopics);
+    }
+    const handleDeletePost = async () => {
+        const data = await deltePostApi({ postId: postId });
+        console.log(data);
+        window.location.reload();
+    }
     useEffect(() => {
         getTopicsNameFn();
     }, [])
@@ -164,6 +177,10 @@ const JavaScripts = () => {
                         </div>
                     </div>
                     <div className='w-10/12 h-[900px] overflow-y-auto ml-3 pr-3'>
+                        <i className="ri-delete-bin-5-fill text-4xl flex justify-center cursor-pointer  
+                          hover:text-red-600 "
+                            onClick={handleDeletePost}
+                        ></i>
                         {/*1. topic name */}
                         <div className='text-xl flex items-center justify-center mt-2 underline text-sky-600'>
                             {
@@ -376,7 +393,9 @@ const JavaScripts = () => {
                                         <i className="ri-edit-line ml-2 cursor-pointer text-2xl "
                                             onClick={() => handleSubtopicIndex(index)}
                                         ></i>
-
+                                        <i className="ri-delete-bin-line cursor-pointer text-2xl hover:text-red-600 ml-4"
+                                            onClick={() => handleDeleteSubtopics(index)}
+                                        ></i>
                                         <div className='m-1  text-blue-700 text-xl flex justify-center'>{st.name}
                                             {/* edit5 */}
                                         </div>
