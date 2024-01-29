@@ -1,16 +1,28 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Searchs from '../Pages/Searchs/Searchs';
+import { user } from '../Api/userApi';
+import React from 'react';
 
 const Admin = ({ children }) => {
     const navigate = useNavigate();
     const [mobileMenu, setmobileMenu] = useState(false);
-
-    useEffect(() => {
+    const [username, setUsername] = useState();
+    const authenticate = async () => {
         const token = localStorage.getItem("token");
         if (!token) {
             navigate('/login');
         }
+        const data = await user({ authentication: token });
+        // console.log(data.data);
+        setUsername(data.data.username);
+        if (!data.data.admin) {
+            navigate('/login');
+        }
+    }
+
+    useEffect(() => {
+        authenticate();
     })
 
     return (
@@ -112,7 +124,7 @@ const Admin = ({ children }) => {
             </header>
 
             <main >
-                <div className=''>{children}</div>
+                <div className=''>{React.cloneElement(children, { username: username })}</div>
             </main>
         </div>
     )

@@ -18,3 +18,12 @@ export const loginApi = async (payload) => {
         return error;
     }
 }
+export const user = async (payload) => {
+    try {
+        const res = await apiInstances.get("api/Users/user", { headers: payload });
+        return res.data;
+    } catch (error) {
+        return error;
+    }
+
+}

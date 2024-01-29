@@ -2,9 +2,11 @@ const jwt = require('jsonwebtoken');
 
 const autmiddleware = (req, res, next) => {
     try {
-        const token = req.header("authentication").split(" ")[1];
+        // console.log(req.header);
+        const token = req.header("authentication");
         const decryptToken = jwt.verify(token, process.env.SECRET_TOKEN);
-        req.userid = decryptToken.userid;
+        // console.log(decryptToken.userid);
+        req.body.userid = decryptToken.userid;
         next();
     } catch (error) {
         res.send(error.message);
