@@ -12,11 +12,11 @@ import MySqls from './Pages/Course/MySqls/MySql';
 import { useEffect, useState } from 'react';
 import Loader from './component/Loader';
 import Admin from './admin/Admin';
-import { MyProvider } from './component/Mycontext';
 import SearchResultData from './Pages/Searchs/SearchResultData';
 import AdminHome from './admin/pages/AdminHome';
 import SignUp from './admin/Authenticaton/SignUp';
 import Login from './admin/Authenticaton/Login';
+import { MyProvider } from './component/MyContext';
 
 
 function App() {
