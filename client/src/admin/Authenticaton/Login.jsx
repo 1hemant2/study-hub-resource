@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import { loginApi } from '../../Api/userApi';
 import { message } from 'antd';
-
 
 const Login = () => {
     const navigate = useNavigate();
@@ -26,6 +25,7 @@ const Login = () => {
             const res = await loginApi({ data });
             setData({});
             if (res.success) {
+                localStorage.setItem("token", res.data);
                 navigate('/admin');
             }
             console.log(res);
@@ -34,6 +34,7 @@ const Login = () => {
             console.log(error);
         }
     }
+
     return (
         <div className='bg-[#47a8b3] h-screen flex justify-center items-center'>
             {contextHolder}
@@ -50,7 +51,7 @@ const Login = () => {
                 </form >
                 <p className='p-2'>don't have an account ?<span className=' underline ml-2 hover:text-red-400 cursor-pointer'
                     onClick={() => navigate('/signpu')}
-                >loin</span></p>
+                >login</span></p>
             </div>
 
         </div>

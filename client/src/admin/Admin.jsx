@@ -1,11 +1,18 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Searchs from '../Pages/Searchs/Searchs';
 
 const Admin = ({ children }) => {
     const navigate = useNavigate();
     const [mobileMenu, setmobileMenu] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate('/login');
+        }
+    })
+
     return (
         <div className='h-screen overflow-y-hidden'>
             {/* for mobile */}

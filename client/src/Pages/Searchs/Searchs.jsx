@@ -1,9 +1,8 @@
 import { Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 const { Search } = Input;
-import { MyContext } from '../../component/Mycontext';
 import { useContext } from 'react';
-
+import { MyContext } from '../../component/MyContext';
 
 const Searchs = () => {
     const navigate = useNavigate();

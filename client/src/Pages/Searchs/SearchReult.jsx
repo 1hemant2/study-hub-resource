@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { serachDataApi } from '../../Api/subjectApi';
-import { MyContext } from '../../component/Mycontext';
 import NoSearchResult from './NoSearchResult';
 import { useNavigate } from 'react-router-dom';
+import { MyContext } from '../../component/MyContext';
 
 const SearchReult = () => {
     const [topics, setTopics] = useState([]);

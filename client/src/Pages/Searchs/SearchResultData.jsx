@@ -6,6 +6,8 @@ import CodeHightLighter from '../../component/CodeHightLighter';
 import Loader from '../../component/Loader';
 import { editApi, deleteSubtopicApi, deltePostApi } from '../../Api/subjectApi';
 import { useNavigate } from 'react-router-dom';
+
+
 const SearchResultData = () => {
     const [topicName, setTopicName] = useState();
     const [topicDetails, setTopicDetails] = useState(String);
@@ -18,9 +20,9 @@ const SearchResultData = () => {
     const [orginalValue, setOriginalValue] = useState({})
     const [subTopicIndex, setSubTopicIndex] = useState();
     const [originalSubTopicValue, setOriginalSubTopicValue] = useState({});
+    const [isLogin, setIsLogin] = useState(false);
     const params = useParams();
     const navigate = useNavigate();
-    // console.log(params.subject);
     const topicDetailFn = async () => {
         try {
             // console.log(value);
@@ -116,10 +118,18 @@ const SearchResultData = () => {
         await deltePostApi({ postId: postId });
         navigate('/html')
     }
+    const authenticate = () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            setIsLogin(true);
+        }
+    }
     useEffect(() => {
         topicDetailFn();
     }, [])
-
+    useEffect(() => {
+        authenticate();
+    })
     return (
         <div>
             {/* for laptop */}
@@ -127,10 +137,14 @@ const SearchResultData = () => {
                 <div className='flex flex-row w-full'>
                     <div className='w-1/12'></div>
                     <div className='w-11/12 h-[900px] overflow-y-auto ml-3 pr-3'>
-                        <i className="ri-delete-bin-5-fill text-4xl flex justify-center cursor-pointer  
-                          hover:text-red-600 "
-                            onClick={handleDeletePost}
-                        ></i>
+                        {
+                            isLogin &&
+                            <i className="ri-delete-bin-5-fill text-4xl flex justify-center cursor-pointer  
+                            hover:text-red-600 "
+                                onClick={handleDeletePost}
+                            ></i>
+                        }
+
                         {/*1. topic name */}
                         <div className='text-xl flex items-center justify-center mt-2 underline text-sky-600'>
                             {
@@ -152,9 +166,14 @@ const SearchResultData = () => {
                                     : (
                                         <>
                                             {topicName}
-                                            <i className="ri-edit-line ml-2 cursor-pointer"
-                                                onClick={() => handleUpdate('topicName', topicName)}
-                                            ></i>
+
+                                            {
+                                                isLogin &&
+                                                <i className="ri-edit-line ml-2 cursor-pointer"
+                                                    onClick={() => handleUpdate('topicName', topicName)}
+                                                ></i>
+                                            }
+
                                         </>
                                     )
                             }
@@ -187,9 +206,12 @@ const SearchResultData = () => {
                                     </div> : (topicDetails &&
                                         <>
                                             {topicDetails}
-                                            <i className="ri-edit-line ml-2 cursor-pointer"
-                                                onClick={() => handleUpdate('topicDetails', topicDetails)}
-                                            ></i>
+                                            {
+                                                isLogin &&
+                                                <i className="ri-edit-line ml-2 cursor-pointer"
+                                                    onClick={() => handleUpdate('topicDetails', topicDetails)}
+                                                ></i>
+                                            }
                                         </>
 
                                     )
@@ -224,9 +246,12 @@ const SearchResultData = () => {
                                 (codes &&
                                     <div>
                                         <CodeHightLighter language="html" code={codes}></CodeHightLighter>
-                                        <i className="ri-edit-line ml-2 cursor-pointer"
-                                            onClick={() => handleUpdate('codes', codes)}
-                                        ></i>
+                                        {
+                                            isLogin &&
+                                            <i className="ri-edit-line ml-2 cursor-pointer"
+                                                onClick={() => handleUpdate('codes', codes)}
+                                            ></i>
+                                        }
                                         {/* edit3 */}
                                         {/* 4.change */}
                                     </div>
@@ -261,9 +286,12 @@ const SearchResultData = () => {
                                     output && <div>
                                         <div>output:</div>
                                         <CodeHightLighter language="html" code={output}></CodeHightLighter>
-                                        <i className="ri-edit-line ml-2 cursor-pointer"
-                                            onClick={() => handleUpdate('output', output)}
-                                        ></i>
+                                        {
+                                            isLogin &&
+                                            <i className="ri-edit-line ml-2 cursor-pointer"
+                                                onClick={() => handleUpdate('output', output)}
+                                            ></i>
+                                        }
                                         {/* edit4 */}
                                         {/* 5.change */}
                                     </div>
@@ -340,12 +368,17 @@ const SearchResultData = () => {
                                     </div>
                                     :
                                     <div key={index} className='mt-10'>
-                                        <i className="ri-edit-line ml-2 cursor-pointer text-2xl "
-                                            onClick={() => handleSubtopicIndex(index)}
-                                        ></i>
-                                        <i className="ri-delete-bin-line cursor-pointer text-2xl hover:text-red-600 ml-4"
-                                            onClick={() => handleDeleteSubtopics(index)}
-                                        ></i>
+                                        {
+                                            isLogin && <>
+                                                <i className="ri-edit-line ml-2 cursor-pointer text-2xl "
+                                                    onClick={() => handleSubtopicIndex(index)}
+                                                ></i>
+                                                <i className="ri-delete-bin-line cursor-pointer text-2xl hover:text-red-600 ml-4"
+                                                    onClick={() => handleDeleteSubtopics(index)}
+                                                ></i>
+                                            </>
+                                        }
+
                                         <div className='m-1  text-blue-700 text-xl flex justify-center'>{st.name}
                                             {/* edit5 */}
                                         </div>
