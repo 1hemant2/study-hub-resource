@@ -96,7 +96,6 @@ const SearchResultData = () => {
         } catch (error) {
             console.log(error);
         }
-
     }
     const handleSubtopicCancel = () => {
         const updatedSubtopics = [...subtopics];

@@ -15,6 +15,8 @@ import Admin from './admin/Admin';
 import { MyProvider } from './component/Mycontext';
 import SearchResultData from './Pages/Searchs/SearchResultData';
 import AdminHome from './admin/pages/AdminHome';
+import SignUp from './admin/Authenticaton/SignUp';
+import Login from './admin/Authenticaton/Login';
 
 
 function App() {
@@ -48,6 +50,8 @@ function App() {
               <Route path='/searchResultData/:subject/:topicName' element={<ProtectedPage><SearchResultData></SearchResultData></ProtectedPage>}></Route>
               <Route path='/admin/createPost' element={<Admin><CreatePost></CreatePost></Admin>}></Route>
               <Route path='/admin' element={<Admin><AdminHome></AdminHome></Admin>}></Route>
+              <Route path='/signup' element={<SignUp></SignUp>}></Route>
+              <Route path='/login' element={<Login></Login>}></Route>
               <Route path='/*' element={<ProtectedPage><Home></Home></ProtectedPage>}></Route>
             </Routes>
           </BrowserRouter>
