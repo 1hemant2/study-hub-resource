@@ -15,10 +15,14 @@ const Admin = ({ children }) => {
         }
         const data = await user({ authentication: token });
         // console.log(data.data);
-        setUsername(data.data.username);
+        console.log(data);
+        if (data === 'jwt expired') {
+            navigate('/login');
+        }
         if (!data.data.admin) {
             navigate('/login');
         }
+        setUsername(data.data.username);
     }
 
     useEffect(() => {

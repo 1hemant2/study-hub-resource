@@ -52,7 +52,7 @@ exports.Login = async (req, res) => {
         }
         const validPassword = bcrypt.compareSync(password, user.password);
         if (!validPassword) throw new Error("wrong password");
-        const token = jwt.sign({ userid: user._id }, process.env.SECRET_TOKEN, { expiresIn: "1d" });
+        const token = jwt.sign({ userid: user._id }, process.env.SECRET_TOKEN, { expiresIn: "3d" });
         res.send({
             message: "login successfully",
             data: token,
