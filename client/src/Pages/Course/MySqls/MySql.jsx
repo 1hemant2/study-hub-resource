@@ -233,8 +233,8 @@ const MySql = () => {
                                     <div className='text-lg text-sky-600 font-semibold bg-slate-200'>topics</div>
                                     <div className=' h-[650px] overflow-y-auto  bg-slate-50'>
                                         {
-                                            topics && topics.map((t) => {
-                                                return (<div key={t}>
+                                            topics && topics.map((t, index) => {
+                                                return (<div key={index}>
                                                     <div className={`m-2 cursor-pointer text-blue-950 ${t === topicName && 'underline text-orange-900 '}`}
                                                         onClick={() => {
                                                             topicDetailFn(t);

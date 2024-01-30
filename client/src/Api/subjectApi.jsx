@@ -27,13 +27,14 @@ export const SubjectApi = async (payload) => {
 export const TopicDetailsApi = async (subject, topic) => {
     try {
         // console.log(subject, topic);
+        // console.log(subject, topic);
         const response = await apiInstances.get('/api/posts/getTopicDetials', {
             params: {
                 subject: subject,
                 topic: topic
             }
         })
-        // console.log(response.data);
+        console.log(response.data);
         return response.data.data;
     } catch (error) {
         return error;

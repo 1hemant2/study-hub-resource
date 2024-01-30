@@ -27,7 +27,7 @@ const SearchReult = () => {
                 <div className='flex justify-center text-2xl'>{serachValue ? (<div>select the topic to continue</div>) : (<div>enter the topic name in search box </div>)}</div>
                 <div className='h-[700px] overflow-y-auto '>
                     {
-                        topics.length > 0 ?
+                        topics?.length > 0 ?
                             topics.map((t, index) => (
                                 <div key={index} className='mt-6  text-blue-500 cursor-pointer '
                                     onClick={() => handleNavigate(t.topicName, t.subject)}

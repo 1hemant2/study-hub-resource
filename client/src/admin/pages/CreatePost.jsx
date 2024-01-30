@@ -2,6 +2,8 @@ import React from 'react'
 import { useState } from 'react'
 import { CreatePostApi } from '../../Api/subjectApi';
 import { Button, Modal } from 'antd'
+import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 // how to add subtopic dynamically 
 /*1.create empty array, 
   2.when click on the addsubtopic , 
@@ -16,6 +18,14 @@ const CreatePost = () => {
     const [selectedOption, setSelectedOption] = useState('');
     const [subtopics, setSubtopics] = useState([{}]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [messageApi, contextHolder] = message.useMessage();
+    const navigate = useNavigate();
+    const success = () => {
+        messageApi.open({
+            type: 'success',
+            content: 'This is a success message',
+        });
+    };
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -63,10 +73,17 @@ const CreatePost = () => {
         const response = await CreatePostApi(updatedData);
         setData({});
         setSubtopics([{}]);
-        //setData({});
+        if (response.success) {
+            setTimeout(() => {
+                success();
+            }, 1000);
+            navigate('/html')
+        }
+        console.log(response);
     }
     return (
         <div className='bg-slate-300 overflow-y-auto h-screen '>
+            {contextHolder}
             <div className='modal flex justify-end'>
                 <Button type="" className='bg-slate-600 text-white' onClick={showModal}>
                     FILL DATA ?

@@ -60,6 +60,7 @@ exports.getTopicDetials = async (req, res) => {
         // console.log(topic);
         // console.log(subject);
         const data = await Post.find({ subject: subject, topicName: topic });
+        // console.log(data);
         const topicDetails = data[0];
         // console.log(topicDetails);
 
@@ -68,7 +69,7 @@ exports.getTopicDetials = async (req, res) => {
             success: true
         })
     } catch (error) {
-        res.send(error);
+        res.send(error.message);
     }
 }
 
