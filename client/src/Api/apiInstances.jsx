@@ -1,4 +1,4 @@
 import axios from 'axios';
 export const apiInstances = axios.create({
-    baseURL: 'http://localhost:8080'
+    baseURL: 'https://study-hub-ltxg.onrender.com'
 });

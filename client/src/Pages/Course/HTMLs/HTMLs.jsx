@@ -4,8 +4,6 @@ import CodeHightLighter from '../../../component/CodeHightLighter';
 import { useNavigate, useParams } from 'react-router-dom';
 import { SubjectApi, TopicDetailsApi } from '../../../Api/subjectApi';
 
-
-
 const HTMLs = () => {
     // 1.change
     const [topics, setTopics] = useState([]);
@@ -115,12 +113,7 @@ const HTMLs = () => {
                         {/*1. topic name */}
                         <div className='text-xl flex items-center justify-center mt-2 underline text-sky-600'>
                             {
-
-                                <>
-                                    {topicName}
-
-                                </>
-
+                                topicName
                             }
 
                             {/* edit1 */}
@@ -131,10 +124,8 @@ const HTMLs = () => {
                         <div className='m-2 text-lg'>
                             {
                                 topicDetails &&
-                                <>
-                                    {topicDetails}
 
-                                </>
+                                topicDetails
                             }
                         </div>
 
