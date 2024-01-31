@@ -23,7 +23,7 @@ const Reacts = () => {
             // console.log(data);
             setTopics(data);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     const topicDetailFn = async (value) => {
@@ -50,14 +50,14 @@ const Reacts = () => {
                 setNextTopic(undefined);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     const handleDownload = async () => {
         try {
             window.open(topicDownload);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
     const hanldeMobileMenuTopics = () => {
@@ -90,7 +90,7 @@ const Reacts = () => {
                             {
                                 topics && topics.map((t) => {
                                     return (<div key={t}>
-                                        <div className={`m-2 cursor-pointer text-blue-950 ${t === topicName && 'underline text-orange-900 '}`}
+                                        <div className={`m-2 cursor-pointer text-blue-950 text-xl ${t === topicName && 'underline text-orange-900 '}`}
                                             onClick={() => {
                                                 topicDetailFn(t);
                                             }}

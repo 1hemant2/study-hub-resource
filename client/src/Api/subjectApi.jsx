@@ -7,7 +7,8 @@ export const CreatePostApi = async (payload) => {
         return response.data;
         // return payload;
     } catch (error) {
-        console.log(error);
+        // console.log(error);
+        return error;
     }
 }
 
@@ -34,7 +35,7 @@ export const TopicDetailsApi = async (subject, topic) => {
                 topic: topic
             }
         })
-        console.log(response.data);
+        // console.log(response.data);
         return response.data.data;
     } catch (error) {
         return error;
@@ -44,13 +45,13 @@ export const TopicDetailsApi = async (subject, topic) => {
 
 export const serachDataApi = async (topic) => {
     try {
-        console.log(topic)
+        // console.log(topic)
         const response = await apiInstances.get('/api/posts/getSerchResult', {
             params: {
                 topic: topic
             }
         })
-        console.log(response.data.data)
+        // console.log(response.data.data)
         return response.data.data;
     } catch (error) {
         return error;
@@ -77,7 +78,7 @@ export const deleteSubtopicApi = async (payload) => {
 }
 export const deltePostApi = async (payload) => {
     try {
-        console.log(payload)
+        // console.log(payload)
         const response = await apiInstances.delete('/api/Posts/deletePost', { data: payload });
         return response
     } catch (error) {

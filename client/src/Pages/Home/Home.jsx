@@ -20,7 +20,7 @@ const Home = () => {
                 <div>
                     <h3 style={contentStyle}>
                         <img src={i1} alt="study image" height={300} width={2000} />
-                        {console.log(i1)}
+                        {/* {console.log(i1)} */}
                     </h3>
                 </div>
                 <div>

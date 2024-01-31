@@ -15,7 +15,7 @@ const Admin = ({ children }) => {
         }
         const data = await user({ authentication: token });
         // console.log(data.data);
-        console.log(data);
+        // console.log(data);
         if (data === 'jwt expired') {
             navigate('/login');
         }

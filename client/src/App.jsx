@@ -17,14 +17,14 @@ import AdminHome from './admin/pages/AdminHome';
 import SignUp from './admin/Authenticaton/SignUp';
 import Login from './admin/Authenticaton/Login';
 import { MyProvider } from './component/MyContext';
+import { Skeleton } from 'antd';
 
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const fakeAsyncOperation = async () => {
-    // Simulate a delay (you can replace this with your actual loading logic)
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setLoading(false); // Set loading to false when the operation is complete
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setLoading(false);
   };
   useEffect(() => {
     fakeAsyncOperation();

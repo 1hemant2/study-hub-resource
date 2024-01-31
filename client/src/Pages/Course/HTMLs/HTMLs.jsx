@@ -26,7 +26,7 @@ const HTMLs = () => {
             const data = await SubjectApi({ "subject": "html" }); //2.change
             setTopics(data);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     const topicDetailFn = async (value) => {
@@ -35,6 +35,7 @@ const HTMLs = () => {
             setTopicName(value);
             const data = await TopicDetailsApi("html", value); //3.change
             // console.log(data);
+
             setTopicDetails(data.topicDetails);
             setTopicDownload(data.downloadResource)
             setCodes(data.code);
@@ -54,14 +55,14 @@ const HTMLs = () => {
             }
             // console.log(data.subtopics);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     const handleDownload = async () => {
         try {
             window.open(topicDownload);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
     const hanldeMobileMenuTopics = () => {
@@ -74,7 +75,7 @@ const HTMLs = () => {
     useEffect(() => {
         if (topics.length > 0) {
             const parameter = params.topics;
-            console.log(parameter);
+            // console.log(parameter);
             if (parameter) {
                 topicDetailFn(parameter);
             } else {
@@ -95,7 +96,7 @@ const HTMLs = () => {
                             {
                                 topics && topics.map((t) => {
                                     return (<div key={t}>
-                                        <div className={`m-2 cursor-pointer text-blue-950 ${t === topicName && 'underline text-orange-900'}`}
+                                        <div className={`m-2 cursor-pointer text-blue-950 text-xl ${t === topicName && 'underline text-orange-900'}`}
                                             onClick={() => {
                                                 topicDetailFn(t);
                                             }}
@@ -108,6 +109,7 @@ const HTMLs = () => {
                             }
                         </div>
                     </div>
+
                     <div className='w-10/12 h-[900px] overflow-y-auto ml-3 pr-3'>
 
                         {/*1. topic name */}
@@ -133,9 +135,6 @@ const HTMLs = () => {
                                     {topicDetails}
 
                                 </>
-
-
-
                             }
                         </div>
 

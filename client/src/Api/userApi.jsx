@@ -11,7 +11,7 @@ export const signupApi = async (payload) => {
 }
 export const loginApi = async (payload) => {
     try {
-        console.log(payload);
+        // console.log(payload);
         const res = await apiInstances.post("/api/Users/login", payload);
         return res.data;
     } catch (error) {

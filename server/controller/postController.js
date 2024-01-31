@@ -22,7 +22,7 @@ exports.createPost = async (req, res) => {
     } catch (error) {
         res.send({
             success: false,
-            message: error
+            message: error.message
         })
     }
 }
@@ -48,7 +48,7 @@ exports.getSubject = async (req, res) => {
             success: true,
         })
     } catch (error) {
-        res.send(error)
+        res.send(error.message)
     }
 }
 
@@ -57,12 +57,9 @@ exports.getTopicDetials = async (req, res) => {
     try {
         const subject = req.query.subject;
         const topic = req.query.topic;
-        // console.log(topic);
-        // console.log(subject);
+
         const data = await Post.find({ subject: subject, topicName: topic });
-        // console.log(data);
         const topicDetails = data[0];
-        // console.log(topicDetails);
 
         res.send({
             data: topicDetails,
@@ -92,7 +89,7 @@ exports.getSearch = async (req, res) => {
             success: true,
         })
     } catch (error) {
-        res.send(error);
+        res.send(error.message);
     }
 }
 
@@ -134,7 +131,7 @@ exports.editPost = async (req, res) => {
         await post.save();
         res.send("post updated successfully")
     } catch (error) {
-        res.send(error);
+        res.send(error.message);
     }
 }
 
@@ -157,7 +154,7 @@ exports.deleteSubtopics = async (req, res) => {
     } catch (error) {
         res.send({
             success: false,
-            data: error
+            data: error.message
         })
     }
 
@@ -179,7 +176,7 @@ exports.deletePost = async (req, res) => {
     } catch (error) {
         res.send({
             success: false,
-            error: error
+            error: error.message
         })
     }
 

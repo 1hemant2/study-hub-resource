@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 const CreatePost = () => {
     const [data, setData] = useState({});
     const [selectedOption, setSelectedOption] = useState('');
-    const [subtopics, setSubtopics] = useState([{}]);
+    const [subtopics, setSubtopics] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const navigate = useNavigate();
@@ -79,19 +79,24 @@ const CreatePost = () => {
             }, 1000);
             navigate('/html')
         }
-        console.log(response);
+        // console.log(response);
     }
     return (
         <div className='bg-slate-300 overflow-y-auto h-screen '>
             {contextHolder}
             <div className='modal flex justify-end'>
                 <Button type="" className='bg-slate-600 text-white' onClick={showModal}>
-                    FILL DATA ?
+                    how to fill data?
                 </Button>
                 <Modal title="rule to fill the data" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} >
-                    <p className='text-2xl'>1.add subtopic on click subtopic button</p>
-                    <p className='text-2xl'>2.if subtopic had code make sure subtopic name and code name will same</p>
-                    <p className='text-2xl'>3.click on create post button to create post</p>
+                    <li>
+                        <ol>1.topic name is compulsary and must be unique</ol>
+                        <ol>2.add on subtopic button to add subtopic</ol>
+                        <ol>3.fill the subtopic field as your requirement.</ol>
+                        <ol>4.if you have to app to code or other field continously follow step from below</ol>
+                        <ol>5.add subtopic and fill the only field which is continous</ol>
+                        <ol></ol>
+                    </li>
                 </Modal>
             </div>
             <form onSubmit={handleSubmit}>

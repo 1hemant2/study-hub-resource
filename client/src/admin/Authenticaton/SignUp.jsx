@@ -31,9 +31,9 @@ const SignUp = () => {
                     navigate('/login');
                 }, 1000)
             }
-            console.log(res);
+            // console.log(res);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     return (

@@ -23,7 +23,7 @@ const JavaScripts = () => {
             const data = await SubjectApi({ "subject": "javascript" }); //2.change
             setTopics(data);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     const topicDetailFn = async (value) => {
@@ -49,14 +49,14 @@ const JavaScripts = () => {
                 setNextTopic(undefined);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     const handleDownload = async () => {
         try {
             window.open(topicDownload);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
     const hanldeMobileMenuTopics = () => {
@@ -89,7 +89,7 @@ const JavaScripts = () => {
                             {
                                 topics && topics.map((t) => {
                                     return (<div key={t}>
-                                        <div className={`m-2 cursor-pointer text-blue-950 ${t === topicName && 'underline text-orange-900 '}`}
+                                        <div className={`m-2 cursor-pointer text-blue-950 text-xl ${t === topicName && 'underline text-orange-900 '}`}
                                             onClick={() => {
                                                 topicDetailFn(t);
                                             }}

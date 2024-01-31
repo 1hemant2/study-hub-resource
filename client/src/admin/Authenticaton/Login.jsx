@@ -8,10 +8,10 @@ const Login = () => {
     const navigate = useNavigate();
     const [data, setData] = useState({});
     const [messageApi, contextHolder] = message.useMessage();
-    const errorMessage = (error) => {
+    const errorMessage = () => {
         messageApi.open({
             type: 'error',
-            content: error,
+            content: "something went wrong",
         });
     };
 
@@ -27,11 +27,13 @@ const Login = () => {
             if (res.success) {
                 localStorage.setItem("token", res.data);
                 navigate('/admin');
+            } else {
+                throw new Error("something went wrong")
             }
-            console.log(res);
+            // console.log(res);
         } catch (error) {
-            errorMessage(error);
-            console.log(error);
+            errorMessage();
+            // console.log(error);
         }
     }
 

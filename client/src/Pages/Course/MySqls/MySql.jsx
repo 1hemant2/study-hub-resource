@@ -22,14 +22,14 @@ const MySql = () => {
             const data = await SubjectApi({ "subject": "mysql" });
             setTopics(data);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     const topicDetailFn = async (value) => {
         try {
             setTopicName(value);
             const data = await TopicDetailsApi("mysql", value); //3.change
-            console.log(data);
+            // console.log(data);
             setTopicDetails(data.topicDetails);
             setTopicDownload(data.downloadResource)
             setCodes(data.code);
@@ -49,14 +49,14 @@ const MySql = () => {
             }
             // console.log(data.subtopics);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     const handleDownload = async () => {
         try {
             window.open(topicDownload);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
     const hanldeMobileMenuTopics = () => {
@@ -70,7 +70,7 @@ const MySql = () => {
         if (topics.length > 0) {
             const parameter = params.topics;
             // console.log(topics);
-            console.log(parameter);
+            // console.log(parameter);
             if (parameter) {
                 topicDetailFn(parameter);
             } else {
@@ -89,7 +89,7 @@ const MySql = () => {
                             {
                                 topics && topics.map((t) => {
                                     return (<div key={t}>
-                                        <div className={`m-2 cursor-pointer text-blue-950 ${t === topicName && 'underline text-orange-900 '}`}
+                                        <div className={`m-2 cursor-pointer text-blue-950 text-xl ${t === topicName && 'underline text-orange-900 '}`}
                                             onClick={() => {
                                                 topicDetailFn(t);
                                             }}

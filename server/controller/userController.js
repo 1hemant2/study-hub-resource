@@ -7,7 +7,7 @@ exports.Register = async (req, res) => {
         const { data } = req.body;
         // console.log(req.body.data)
         const { username, email, password } = data;
-        console.log(username);
+        // console.log(username);
         const checkUserName = await User.findOne({ username: username });
         const checkEmail = await User.findOne({ email: email });
         if (checkUserName) {

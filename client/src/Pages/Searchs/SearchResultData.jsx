@@ -29,7 +29,7 @@ const SearchResultData = () => {
             // setSubjectName(params.subject);
             setTopicName(params.topicName)
             const data = await TopicDetailsApi(params.subject, params.topicName); //3.change
-            console.log(data);
+            // console.log(data);
             setTopicDetails(data.topicDetails);
             setTopicDownload(data.downloadResource)
             setCodes(data.code);
@@ -38,14 +38,14 @@ const SearchResultData = () => {
             setPostId(data._id)
             // console.log(data.subtopics);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     const handleDownload = async () => {
         try {
             window.open(topicDownload);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
     const handleUpdate = (key, value) => {
@@ -64,7 +64,7 @@ const SearchResultData = () => {
             postId: postId,
             [key]: value
         })
-        console.log(data);
+        // console.log(data);
     }
     const handleChange = (key, value) => {
         key(value);
@@ -92,11 +92,11 @@ const SearchResultData = () => {
                 subtopics: subtopics,
                 postId: postId
             });
-            console.log(data);
+            // console.log(data);
             setSubTopicIndex(null);
-            console.log(data);
+            // console.log(data);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     const handleSubtopicCancel = () => {

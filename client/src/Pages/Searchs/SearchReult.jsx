@@ -10,7 +10,7 @@ const SearchReult = () => {
     const navigate = useNavigate();
     const onSearch = async () => {
         const backendData = await serachDataApi(serachValue);
-        console.log(backendData)
+        // console.log(backendData)
         setTopics(backendData);
     };
     const handleNavigate = async (topicName, subjectName) => {
