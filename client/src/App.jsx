@@ -1,64 +1,65 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import ProtectedPage from './component/ProtectedPage';
-import Home from './Pages/Home/Home';
-import JavaScripts from './Pages/Course/JavaScripts/JavaScripts';
-import HTMLs from './Pages/Course/HTMLs/HTMLs';
-import CSSs from './Pages/Course/CSSs/CSSs';
-import Reacts from './Pages/Course/Reacts/Reacts';
-import SearchReult from './Pages/Searchs/SearchReult';
-import CreatePost from './admin/pages/CreatePost';
-import MySqls from './Pages/Course/MySqls/MySql';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import Loader from './component/Loader';
-import Admin from './admin/Admin';
-import SearchResultData from './Pages/Searchs/SearchResultData';
-import AdminHome from './admin/pages/AdminHome';
-import SignUp from './admin/Authenticaton/SignUp';
-import Login from './admin/Authenticaton/Login';
 import { MyProvider } from './component/MyContext';
 import { Skeleton } from 'antd';
 
+const ProtectedPage = lazy(() => import('./component/ProtectedPage'));
+const Home = lazy(() => import('./Pages/Home/Home'));
+const JavaScripts = lazy(() => import('./Pages/Course/JavaScripts/JavaScripts'));
+const HTMLs = lazy(() => import('./Pages/Course/HTMLs/HTMLs'));
+const CSSs = lazy(() => import('./Pages/Course/CSSs/CSSs'));
+const Reacts = lazy(() => import('./Pages/Course/Reacts/Reacts'));
+const SearchReult = lazy(() => import('./Pages/Searchs/SearchReult'));
+const CreatePost = lazy(() => import('./admin/pages/CreatePost'));
+const MySqls = lazy(() => import('./Pages/Course/MySqls/MySql'));
+const Admin = lazy(() => import('./admin/Admin'));
+const SearchResultData = lazy(() => import('./Pages/Searchs/SearchResultData'));
+const AdminHome = lazy(() => import('./admin/pages/AdminHome'));
+const SignUp = lazy(() => import('./admin/Authenticaton/SignUp'));
+const Login = lazy(() => import('./admin/Authenticaton/Login'));
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const fakeAsyncOperation = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setLoading(false);
-  };
+
   useEffect(() => {
+    const fakeAsyncOperation = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setLoading(false);
+    };
     fakeAsyncOperation();
-  }, [])
+  }, []);
+
   return (
     <>
-      {loading ? (<Loader></Loader>) :
+      {loading ? (
+        <Loader />
+      ) : (
         <MyProvider>
           <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<ProtectedPage><Home></Home></ProtectedPage>}></Route>
-              <Route path='/html/:topics?' element={<ProtectedPage><HTMLs></HTMLs></ProtectedPage>}></Route>
-              <Route path='/css/:topics?' element={<ProtectedPage><CSSs></CSSs></ProtectedPage>}></Route>
-              <Route path='/javascript/:topics?' element={<ProtectedPage><JavaScripts></JavaScripts></ProtectedPage>}
-              ></Route>
-              <Route path='/react/:topics?' element={<ProtectedPage><Reacts></Reacts></ProtectedPage>}
-              ></Route>
-              <Route path='/mysql/:topics?' element={<ProtectedPage><MySqls></MySqls></ProtectedPage>}
-              ></Route>
-
-              <Route path='/searchResult' element={<ProtectedPage><SearchReult></SearchReult></ProtectedPage>}
-              ></Route>
-              <Route path='/searchResultData/:subject/:topicName' element={<ProtectedPage><SearchResultData></SearchResultData></ProtectedPage>}></Route>
-              <Route path='/admin/createPost' element={<Admin><CreatePost></CreatePost></Admin>}></Route>
-              <Route path='/admin' element={<Admin><AdminHome></AdminHome></Admin>}></Route>
-              <Route path='/signup' element={<SignUp></SignUp>}></Route>
-              <Route path='/login' element={<Login></Login>}></Route>
-              <Route path='/*' element={<ProtectedPage><Home></Home></ProtectedPage>}></Route>
-            </Routes>
+            <Suspense fallback={<Skeleton active />}>
+              <Routes>
+                <Route path="/" element={<ProtectedPage><Home /></ProtectedPage>} />
+                <Route path="/html/:topics?" element={<ProtectedPage><HTMLs /></ProtectedPage>} />
+                <Route path="/css/:topics?" element={<ProtectedPage><CSSs /></ProtectedPage>} />
+                <Route path="/javascript/:topics?" element={<ProtectedPage><JavaScripts /></ProtectedPage>} />
+                <Route path="/react/:topics?" element={<ProtectedPage><Reacts /></ProtectedPage>} />
+                <Route path="/mysql/:topics?" element={<ProtectedPage><MySqls /></ProtectedPage>} />
+                <Route path="/searchResult" element={<ProtectedPage><SearchReult /></ProtectedPage>} />
+                <Route path="/searchResultData/:subject/:topicName" element={<ProtectedPage><SearchResultData /></ProtectedPage>} />
+                <Route path="/admin/createPost" element={<Admin><CreatePost /></Admin>} />
+                <Route path="/admin" element={<Admin><AdminHome /></Admin>} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/*" element={<ProtectedPage><Home /></ProtectedPage>} />
+              </Routes>
+            </Suspense>
           </BrowserRouter>
         </MyProvider>
-      }
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
