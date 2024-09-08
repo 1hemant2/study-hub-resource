@@ -119,7 +119,7 @@ const ProtectedPage = ({ children }) => {
                 <div className=''>{children}</div>
             </main>
             <footer className='mt-7'>
-                <div className='text-xl flex justify-center items-center  fixed bottom-0 bg-slate-100 w-full'>@copyright 2024 Hemant</div>
+                <div className='text-xl flex justify-center items-center  fixed bottom-0 bg-slate-100 w-full'>@copyright 2024</div>
             </footer>
         </div>
     )
